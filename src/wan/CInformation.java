@@ -1,8 +1,10 @@
 package wan;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
-import javax.swing.*;
-public class Information extends JPanel {
+
+public class CInformation extends JPanel {
     private JButton jbs;        //搜索按钮
     private JButton jba;        //添加按钮
     private JButton jbd;        //删除按钮
@@ -22,7 +24,7 @@ public class Information extends JPanel {
     private JPanel[] jPanels;   //学生标签
     private JPanel jpn;         //上方搜索pane
     private JPanel jpso;         //下方按钮
-    private Information(){
+    CInformation(){
         intGUI();
     }
 
@@ -35,34 +37,34 @@ public class Information extends JPanel {
         jba = new JButton("添加");
         jtfs = new JTextField(20);
         jpm = new JPanel();
-        jln = new JLabel("姓名");
-        jlns = new JLabel[10];
-        for(int i = 0; i < 10; i++) {
+        jln = new JLabel("课程名");
+        jlns = new JLabel[20];
+        for(int i = 0; i < 20; i++) {
             jlns[i] = new JLabel("ssss");
         }
-        jlno = new JLabel("编号");
-        jlnos = new JLabel[10];
-        for(int i = 0; i < 10; i++) {
+        jlno = new JLabel("科目类型");
+        jlnos = new JLabel[20];
+        for(int i = 0; i < 20; i++) {
             jlnos[i] = new JLabel("aaaa");
         }
-        jlt = new JLabel("学生类型");
-        jlts = new JLabel[10];
-        for(int i = 0; i < 10; i++) {
+        jlt = new JLabel("任课老师");
+        jlts = new JLabel[20];
+        for(int i = 0; i < 20; i++) {
             jlts[i] = new JLabel("bbbb");
         }
-        jls = new JLabel("入学时间");
-        jlss = new JLabel[10];
-        for(int i = 0; i < 10; i++) {
+        jls = new JLabel("课时费（次）");
+        jlss = new JLabel[20];
+        for(int i = 0; i < 20; i++) {
             jlss[i] = new JLabel("cccc");
         }
         jcka = new JCheckBox("全选");
-        boxes = new JCheckBox[10];
-        for(int i = 0; i < 10; i++) {
+        boxes = new JCheckBox[20];
+        for(int i = 0; i < 20; i++) {
             boxes[i] = new JCheckBox();
         }
         //boxVector = new Vector<>();
-        jPanels = new JPanel[10];
-        for(int i = 0;i < 10;i++){
+        jPanels = new JPanel[20];
+        for(int i = 0;i < 20;i++){
             jPanels[i] = new JPanel();
         }
         //上方pane
@@ -91,14 +93,14 @@ public class Information extends JPanel {
         menu.add(jlt);
         jpm.add(menu,BorderLayout.NORTH);
         //信息
-       for(int i = 0; i < 10; i++){
-           jPanels[i].add(boxes[i]);
-           jPanels[i].add(jlns[i]);
-           jPanels[i].add(jlnos[i]);
-           jPanels[i].add(jlts[i]);
-           jPanels[i].add(jlss[i]);
-           jPanels[i].setLayout(new GridLayout(1,5));
-           jpmm.add(jPanels[i]);
+        for(int i = 0; i < 20; i++){
+            jPanels[i].add(boxes[i]);
+            jPanels[i].add(jlns[i]);
+            jPanels[i].add(jlnos[i]);
+            jPanels[i].add(jlts[i]);
+            jPanels[i].add(jlss[i]);
+            jPanels[i].setLayout(new GridLayout(1,5));
+            jpmm.add(jPanels[i]);
         }
         //总体布局
         add(jpn,BorderLayout.NORTH);
@@ -106,13 +108,5 @@ public class Information extends JPanel {
         add(jpm,BorderLayout.CENTER);
     }
 
-    //测试功能
-    public static void main(String args[]){
-        Information information = new  Information();
-        JFrame frame = new JFrame();
-        frame.add(information);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(400,400,400,400);
-    }
+
 }

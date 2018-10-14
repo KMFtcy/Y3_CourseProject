@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Vector;
 
 public class ArrangeClass extends JPanel {
-    private ArrangeClass (){nsGUI();}
+    ArrangeClass(){nsGUI();}
     private Vector<String> colHead; //表格列标题
     private Vector rows;            //行
     private JTable table;           //表格
@@ -43,12 +43,12 @@ public class ArrangeClass extends JPanel {
         table.setEnabled(false); //设置不可编辑
         table.getTableHeader().setReorderingAllowed(false); //设置标题行不允许被调换
     }
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         ArrangeClass arrangeClass = new ArrangeClass();
         JFrame frame = new JFrame();
         frame.add(arrangeClass);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(400,400,400,400);
-    }
+    }*/
 }

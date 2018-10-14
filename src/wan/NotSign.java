@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class NotSign extends JPanel {
-    private NotSign (){nsGUI();}
+    NotSign(){nsGUI();}
     private Vector<String> colHead; //表格列标题
     private Vector rows;            //行
     private JTable table;           //表格
@@ -44,12 +44,12 @@ public class NotSign extends JPanel {
         table.setEnabled(false); //设置不可编辑
         table.getTableHeader().setReorderingAllowed(false); //设置标题行不允许被调换
     }
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         NotSign notSign = new NotSign();
         JFrame frame = new JFrame();
         frame.add(notSign);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(400,400,400,400);
-    }
+    }*/
 }

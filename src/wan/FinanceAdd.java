@@ -21,7 +21,7 @@ public class FinanceAdd extends JPanel {
     //确定按钮
     private JButton confirm;
 
-    private FinanceAdd(){GUI();}
+    FinanceAdd(){GUI();}
     private void GUI(){
         MJP = new JPanel();
         //创建详细信息jpanel
@@ -39,7 +39,7 @@ public class FinanceAdd extends JPanel {
         outMount = new JTextField(20);
         outPP = new JTextField(20);
         TID = new JTextField(20);
-        LoutId = new JLabel("支出记录ID");
+        LoutId = new JLabel ("支出记录ID");
         LoutTime = new JLabel("  支出时间");
         LoutMount = new JLabel("  支出金额");
         LoutPP = new JLabel("  支出目的");
@@ -65,12 +65,12 @@ public class FinanceAdd extends JPanel {
         jpS.add(confirm,BorderLayout.EAST);
 
     }
-    public static void main(String args[]){
+   /* public static void main(String args[]){
         FinanceAdd financeAdd = new FinanceAdd();
         JFrame frame = new JFrame();
         frame.add(financeAdd);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(400,400,400,400);
-    }
+    }*/
 }
