@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+/**
+ * 学生信息浏览功能
+ *
+ */
 public class CInformation extends JPanel {
     private JButton jbs;        //搜索按钮
     private JButton jba;        //添加按钮
@@ -34,54 +38,47 @@ public class CInformation extends JPanel {
 
     private void intGUI(){
         setLayout(new BorderLayout());
+
         jbs = new JButton("搜索");
         jbd = new JButton("删除");
         jba = new JButton("添加");
         jtfs = new JTextField(20);
         jpm = new JPanel();
         jln = new JLabel("课程名");
-        jlns = new JLabel[20];
-        //为添加按钮实现功能
-        jba.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DetailC DC = new DetailC();
-                DC.setVisible(true);
-                DC.setLocationRelativeTo(null);
-            }
-        });
-
-
-        for(int i = 0; i < 20; i++) {
+        jlns = new JLabel[40];
+        for(int i = 0; i < 40; i++) {
             jlns[i] = new JLabel("ssss");
         }
         jlno = new JLabel("科目类型");
-        jlnos = new JLabel[20];
-        for(int i = 0; i < 20; i++) {
+        jlnos = new JLabel[40];
+        for(int i = 0; i < 40; i++) {
             jlnos[i] = new JLabel("aaaa");
         }
         jlt = new JLabel("任课老师");
-        jlts = new JLabel[20];
-        for(int i = 0; i < 20; i++) {
+        jlts = new JLabel[40];
+        for(int i = 0; i < 40; i++) {
             jlts[i] = new JLabel("bbbb");
         }
         jls = new JLabel("课时费（次）");
-        jlss = new JLabel[20];
-        for(int i = 0; i < 20; i++) {
+        jlss = new JLabel[40];
+        for(int i = 0; i < 40; i++) {
             jlss[i] = new JLabel("cccc");
         }
 
 
-
+        boxVector = new Vector<>();
+        for(int i = 0; i < 40; i++) {
+            boxVector.add(new JCheckBox());
+        }
         jcka = new JCheckBox("全选");
+        /*
         boxes = new JCheckBox[20];
         for(int i = 0; i < 20; i++) {
             boxes[i] = new JCheckBox();
-        }
-        //boxVector = new Vector<>();
-        jPanels = new JPanel[20];
+        }*/
+        jPanels = new JPanel[40];
         Tool tool = new Tool();
-        for(int i = 0;i < 20;i++){
+        for(int i = 0;i < 40;i++){
             jPanels[i] = tool.JPanel(i);
         }
         //上方pane
@@ -110,8 +107,8 @@ public class CInformation extends JPanel {
         menu.add(jlt);
         jpm.add(menu,BorderLayout.NORTH);
         //信息
-        for(int i = 0; i < 20; i++){
-            jPanels[i].add(boxes[i]);
+        for(int i = 0; i < 40; i++){
+            jPanels[i].add(boxVector.get(i));
             jPanels[i].add(jlns[i]);
             jPanels[i].add(jlnos[i]);
             jPanels[i].add(jlts[i]);
@@ -123,7 +120,48 @@ public class CInformation extends JPanel {
         add(jpn,BorderLayout.NORTH);
         add(jpso,BorderLayout.SOUTH);
         add(jpm,BorderLayout.CENTER);
+        //为添加按钮实现功能
+        jba.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DetailC DC = new DetailC();
+                DC.setVisible(true);
+                DC.setLocationRelativeTo(null);
+            }
+        });
+        //为全选添加事件监听
+        jcka.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < 20; i++){
+                    if(jcka.isSelected()) {
+                        boxVector.get(i).setSelected(true);
+                    }else{
+                        boxVector.get(i).setSelected(false);
+                    }
+                }
+            }
+        });
+        //为删除添加事件监听
+        jbd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < 40; i++) {
+                    if (boxVector.get(i).isSelected()) {
+                        jpmm.remove(jPanels[i]);
+
+                        jpmm.repaint();
+                        jpmm.revalidate();
+                        jcka.setSelected(false);
+
+                    }
+                }
+            }
+        });
+
+
+
+
+
     }
-
-
 }

@@ -21,7 +21,6 @@ public class TInformation extends JPanel {
     private JLabel[] jlss;        //入学时间数组
     private JCheckBox jcka;     //全选复选框
     private Vector<JCheckBox> boxVector;
-    private JCheckBox[] boxes;  //复选框数组
     private JPanel[] jPanels;   //学生标签
     private JPanel jpn;         //上方搜索pane
     private JPanel jpso;         //下方按钮
@@ -70,11 +69,10 @@ public class TInformation extends JPanel {
             jlss[i] = new JLabel("cccc");
         }
         jcka = new JCheckBox("全选");
-        boxes = new JCheckBox[20];
-        for(int i = 0; i < 20; i++) {
-            boxes[i] = new JCheckBox();
+        boxVector = new Vector<>();
+        for(int i = 0; i < 20; i++){
+            boxVector.add(new JCheckBox());
         }
-        //boxVector = new Vector<>();
         jPanels = new JPanel[20];
         ToolT tool = new ToolT();
         for(int i = 0;i < 20;i++){
@@ -107,7 +105,7 @@ public class TInformation extends JPanel {
         jpm.add(menu,BorderLayout.NORTH);
         //信息
         for(int i = 0; i < 20; i++){
-            jPanels[i].add(boxes[i]);
+            jPanels[i].add(boxVector.get(i));
             jPanels[i].add(jlns[i]);
             jPanels[i].add(jlnos[i]);
             jPanels[i].add(jlts[i]);
@@ -119,7 +117,34 @@ public class TInformation extends JPanel {
         add(jpn,BorderLayout.NORTH);
         add(jpso,BorderLayout.SOUTH);
         add(jpm,BorderLayout.CENTER);
+        //为全选添加事件监听
+        jcka.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < 20; i++){
+                    if(jcka.isSelected() == true) {
+                        boxVector.get(i).setSelected(true);
+                    }else{
+                        boxVector.get(i).setSelected(false);
+                    }
+                }
+            }
+        });
+        //为删除添加事件监听
+        jbd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < 20; i++) {
+                    if (boxVector.get(i).isSelected()) {
+                        jpmm.remove(jPanels[i]);
+
+                        jpmm.repaint();
+                        jpmm.revalidate();
+                        jcka.setSelected(false);
+
+                    }
+                }
+            }
+        });
     }
-
-
 }

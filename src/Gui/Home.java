@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class Home extends JFrame{
+    //状态栏
+    Status status = new Status();
     //主界面
     JPanel JPMain;
     //状态栏
@@ -36,7 +38,7 @@ public class Home extends JFrame{
     private JMenuItem JMCheck;//查看排课
 
     //构造方法
-    public Home(String title){
+    Home(String title){
         super(title);
         initGui();
     }
@@ -81,15 +83,16 @@ public class Home extends JFrame{
         JMB.add(JFArr);
         JFArr.add(JMArr);
         JFArr.add(JMCheck);
-
+        setLayout(new BorderLayout());
         JPanel jPanel = new JPanel();
         CardLayout card = new CardLayout();
         jPanel.setLayout(card);
-        setSize(1024,768);
+        setSize(new Dimension(1024,768));
         setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);
-        add(jPanel);
+        add(jPanel,BorderLayout.CENTER);
+        add(status,BorderLayout.SOUTH);
         //添加所有界面
         JPanel jjjj = new JPanel();//////////////以后可以用图片代替
         jPanel.add(jjjj);

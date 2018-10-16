@@ -15,7 +15,7 @@ public class Login extends JFrame   {
     //密码标签
     private JLabel lblPassword;
     //用户名文本框
-    private JTextField txtUsername;
+    private   JTextField txtUsername;
     //密码文本框
     private JPasswordField txtPassword;
     //登陆按钮
@@ -30,9 +30,10 @@ public class Login extends JFrame   {
     private JPanel panel2;
     //第三行面板
     private JPanel panel3;
-
+    //////////////////////////////////
+    public static String userss;
     //构造方法
-    public Login(String title) {
+    private Login(String title) {
         super(title);
         // 调用初始化界面方法
         initGUI();
@@ -42,6 +43,7 @@ public class Login extends JFrame   {
      * 初始化界面
      */
     private void initGUI() {
+
         // 实例化控件
         lblUsername = new JLabel("用户名：");
         lblPassword = new JLabel("密    码：");
@@ -53,6 +55,7 @@ public class Login extends JFrame   {
         panel1 = new JPanel();
         panel2 = new JPanel();
         panel3 = new JPanel();
+        /////////////////
 
         // 设置主面板为网格布局
         panel.setLayout(new GridLayout(3, 1));
@@ -122,6 +125,7 @@ public class Login extends JFrame   {
         String cpassword = "123";
         // 获取用户名
         username = txtUsername.getText().trim();
+        userss = txtUsername.getText();
         // 获取密码
         password = new String(txtPassword.getPassword());
 
@@ -155,6 +159,7 @@ public class Login extends JFrame   {
     public static void main(String[] args) {
         // 设置应用程序登录窗口
         App.login = new Login("登录");
+        App.status = new Status();
     }
 }
 
