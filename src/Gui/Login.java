@@ -1,4 +1,4 @@
-package wan;
+package Gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -126,7 +126,8 @@ public class Login extends JFrame   {
         password = new String(txtPassword.getPassword());
 
         // 判断是否登录成功
-        if (username.equals(cuname)  && password.equals(cpassword)) {
+        //if (username.equals(cuname)  && password.equals(cpassword)) {
+        if(true){
             // 隐藏登录窗口
             App.login.setVisible(false);
             // 提示用户登录成功
