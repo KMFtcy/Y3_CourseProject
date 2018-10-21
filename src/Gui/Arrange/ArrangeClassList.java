@@ -5,22 +5,27 @@ import java.awt.*;
 import java.util.Vector;
 
 public class ArrangeClassList extends JFrame {
-    ArrangeClassList(){
+    ArrangeClassList(String string){
+        super(string);
         nsGUI();
         setVisible(true);
         setBounds(400,400,400,400);
+        pack();
     }
+    static String string;
     private Vector<String> colHead; //表格列标题
-    private Vector rows;            //行
+    private Vector<Vector<String>> rows;            //行
     private JTable table;           //表格
     private JScrollPane jScrollPane;//滚动面板
+
     //private Vector<JButton> jButtons;     //点击查看名单数组
 
     private void nsGUI(){
+
         setLayout(new BorderLayout());
         table = new JTable();
-        colHead = new Vector();
-        rows = new Vector();
+        colHead = new Vector<>();
+        rows = new Vector<>();
         //jButtons = new Vector();
         fillTable();
 
@@ -34,9 +39,9 @@ public class ArrangeClassList extends JFrame {
         //填充每行
         rows.clear();
         for (int i = 0; i < 10; i++) {
-            Vector currentRow = new Vector();//创建当前行的数据
+            Vector<String> currentRow = new Vector<>();//创建当前行的数据
             //jButtons.add(new JButton("点击查看名单"));  //向JButtons数组中添加按钮
-            currentRow.addElement("朱子乐");
+            currentRow.addElement("zzz");
             currentRow.addElement("0000000");
             currentRow.addElement("男");  ////////点击名单添加鼠标点击事件监听
             rows.add(currentRow);//将当前行加入rows
