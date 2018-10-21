@@ -7,11 +7,9 @@ public class FinanceAdd extends JPanel {
     private JTextField outId; //支出记录ID
     private JTextField outTime;//支出时间
     private JTextField outMount;//支出金额
-    private JTextField outPP;//支出目的
+    private JTextArea outPP;//支出目的
     private JTextField TID;//老师ID
-    private JPanel MJP; //主要面板
-    private JPanel[] jPanels; //细节面板
-    private JPanel jpS; //下方面板
+
     //相应JLabel
     private JLabel LoutId;
     private JLabel LoutTime;
@@ -23,46 +21,42 @@ public class FinanceAdd extends JPanel {
 
     public FinanceAdd(){GUI();}
     private void GUI(){
-        MJP = new JPanel();
-        //创建详细信息jpanel
-        jPanels = new JPanel[5];
-
-        for(int i = 0;i < 5;i++){
-            jPanels[i] = new JPanel();
-            jPanels[i].setLayout(new FlowLayout());
-            MJP.add(jPanels[i]);
-        }
-
-        jpS = new JPanel();
+        setLayout(null);
         outId = new JTextField(20);
         outTime = new JTextField(20);
         outMount = new JTextField(20);
-        outPP = new JTextField(20);
+        outPP = new JTextArea(6,20);
         TID = new JTextField(20);
         LoutId = new JLabel ("支出记录ID");
-        LoutTime = new JLabel("  支出时间");
-        LoutMount = new JLabel("  支出金额");
-        LoutPP = new JLabel("  支出目的");
-        LTID =new JLabel("    老师ID");
+        LoutTime = new JLabel("支出时间");
+        LoutMount = new JLabel("支出金额");
+        LoutPP = new JLabel("支出目的");
+        LTID =new JLabel("支出教师ID");
         confirm = new JButton("确认");
-        setLayout(new BorderLayout());
-        add(MJP,BorderLayout.CENTER);
-        add(jpS,BorderLayout.SOUTH);
-        //向主要面板添加
-        jPanels[0].add(LoutId);
-        jPanels[0].add(outId);
-        jPanels[1].add(LoutTime);
-        jPanels[1].add(outTime);
-        jPanels[2].add(LoutMount);
-        jPanels[2].add(outMount);
-        jPanels[3].add(LoutPP);
-        jPanels[3].add(outPP);
-        jPanels[4].add(LTID);
-        jPanels[4].add(TID);
-        MJP.setLayout(new BoxLayout(MJP,BoxLayout.Y_AXIS));
-        //向下方面板添加
-        jpS.setLayout(new BorderLayout());
-        jpS.add(confirm,BorderLayout.EAST);
+        confirm.setBounds(800,600,150,75);
+        //添加详细信息
+        add(LoutId);
+        LoutId.setBounds(70,50,100,50);
+        add(outId);
+        outId.setBounds(200,50,200,50);
+        add(LoutTime);
+        LoutTime.setBounds(600,50,100,50);
+        add(outTime);
+        outTime.setBounds(730,50,200,50);
+        add(LoutMount);
+        LoutMount.setBounds(70,150,100,50);
+        add(outMount);
+        outMount.setBounds(200,150,200,50);
+        add(LTID);
+        LTID.setBounds(600,150,100,50);
+        add(TID);
+        TID.setBounds(730,150,200,50);
+        //添加支出目的
+        add(LoutPP);
+        LoutPP.setBounds(70,250,100,50);
+        add(outPP);
+        outPP.setBounds(200,250,450,200);
+        add(confirm);
 
     }
    /* public static void main(String args[]){
