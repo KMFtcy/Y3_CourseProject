@@ -1,5 +1,7 @@
 package Gui.Manage;
 
+import Gui.App;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ public class CInformation extends JPanel {
 
     private JButton jbs;        //搜索按钮
     private JButton jba;        //添加按钮
+    private JButton jbBack;     //返回按钮
     private JButton jbd;        //删除按钮
     private JTextField jtfs;    //搜索文本框
     private JPanel jpm;         //主要显示区域
@@ -43,6 +46,7 @@ public class CInformation extends JPanel {
         //设置标签
         jbs = new JButton("搜索");
         jbd = new JButton("删除");
+        jbBack = new JButton("返回");
         jba = new JButton("添加");
         jtfs = new JTextField(20);
         jpm = new JPanel();
@@ -86,6 +90,7 @@ public class CInformation extends JPanel {
         jpn = new JPanel();
         jpn.add(jtfs);
         jpn.add(jbs);
+        jpn.add(jbBack);
         //下方pane
         jpso = new JPanel();
         jpso.setLayout(new BorderLayout());
@@ -170,6 +175,8 @@ public class CInformation extends JPanel {
         jbd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int choice = JOptionPane.showConfirmDialog(App.home, "确定删除？", "删除", JOptionPane.OK_CANCEL_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
                 boolean flag = false;
                 int count = jPanelVector.size();
                 for (int i = count-1; i >=0; i--) {{
@@ -187,7 +194,51 @@ public class CInformation extends JPanel {
                 }
                 jpmm.repaint();
                 jpmm.revalidate();
+                } else {
+                    jpmm.repaint();
+                    jpmm.revalidate();
+                }
             }
         });
+
+        //为搜索添加事件监听
+        jbs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = jtfs.getText().trim();
+                if(!name.equals("")){
+                    Vector <Integer>temp = new Vector();
+                    for(int i = jPanelVector.size()-1; i >=0; i--){
+                        Object object = jPanelVector.get(1).getComponent(1);  //获取姓名与搜索文本进行对比
+                        if(name.equals(((JLabel) object).getText())){   //保存符合要求的jpanel序号
+                            temp.add(i);
+                        }
+                    }
+                    jpmm.removeAll();
+                    for(int i = 0;i <temp.size();i++){
+                        jpmm.add(jPanelVector.get(temp.get(i)));
+                    }
+                    jpmm.validate();
+                    jpmm.repaint();
+                }else {
+                    JOptionPane.showMessageDialog(App.home,"请输入学生姓名！","警告",JOptionPane.WARNING_MESSAGE);
+                    jtfs.requestFocus();
+                }
+            }
+        });
+
+        //为返回添加事件监听
+        jbBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < jPanelVector.size(); i++){   //此处的i应小于studentlist的长度
+                    jpmm.add(jPanelVector.get(i));
+                }
+                jpmm.validate();
+                jpmm.repaint();
+            }
+        });
+
+
     }
 }
