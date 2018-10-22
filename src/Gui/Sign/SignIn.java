@@ -5,11 +5,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class SignIn extends JPanel {
 	String[] Classes= {"高一生物冲刺班","高二数学竞赛班","高一语文基础班"};  //替换为从数据库中读出课程列表
 	String[] Students = {"张三","李四","王五","宋六"}; //只声明不定义  根据课程名称读出
-	String TeacherName = "孙老师";  // 只声明不定义   从数据库读出，根据课程名称
+	String TeacherName;  // 只声明不定义   从数据库读出，根据课程名称
 	JLabel Teacher;
 	JList ClassList;
 	JList StudentList;
@@ -58,17 +60,26 @@ public class SignIn extends JPanel {
 		Cancel = new JButton("取消");
 
 		ClassList.addListSelectionListener(e -> {
-		    String temp; //用来保存选中课程的名称
-		    temp = (String) ClassList.getSelectedValue();
-            Teacher.setText("老师姓名："+temp);//改为从数据库中获取的该课程的教师姓名
-            Students[1] = Students[1]+temp;
-            StudentList.setListData(Students);
+		    if(!e.getValueIsAdjusting()){
+		    TeacherName = (String) ClassList.getSelectedValue();
+            Teacher.setText("老师姓名："+TeacherName);//改为从数据库中获取的该课程的教师姓名
+            Students[1] = Students[1]+TeacherName;
+            StudentList.setListData(Students);}
         });
 
 		SignOn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                Vector<String> SignOn = new Vector<>();
+
+                SignOn.add( ClassList.getSelectedValue().toString());
+                ArrayList arrayList;
+                arrayList = (ArrayList) StudentList.getSelectedValuesList();
+                for(int i = 0; i<arrayList.size(); i++){
+                    SignOn.add((String) arrayList.get(i));
+                }
+                SignOn.add(Teacher.getText());
+                System.out.println(SignOn);
             }
         });
 
