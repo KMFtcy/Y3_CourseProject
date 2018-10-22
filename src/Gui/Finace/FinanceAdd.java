@@ -33,29 +33,29 @@ public class FinanceAdd extends JPanel {
         LoutPP = new JLabel("支出目的");
         LTID =new JLabel("支出教师ID");
         confirm = new JButton("确认");
-        confirm.setBounds(800,600,150,75);
+        confirm.setBounds(850,500,100,55);
         //添加详细信息
         add(LoutId);
-        LoutId.setBounds(70,50,100,50);
+        LoutId.setBounds(70,50,100,40);
         add(outId);
-        outId.setBounds(200,50,200,50);
+        outId.setBounds(200,50,230,40);
         add(LoutTime);
-        LoutTime.setBounds(600,50,100,50);
+        LoutTime.setBounds(600,50,100,40);
         add(outTime);
-        outTime.setBounds(730,50,200,50);
+        outTime.setBounds(730,50,230,40);
         add(LoutMount);
-        LoutMount.setBounds(70,150,100,50);
+        LoutMount.setBounds(70,110,100,40);
         add(outMount);
-        outMount.setBounds(200,150,200,50);
+        outMount.setBounds(200,110,230,40);
         add(LTID);
-        LTID.setBounds(600,150,100,50);
+        LTID.setBounds(600,110,100,40);
         add(TID);
-        TID.setBounds(730,150,200,50);
+        TID.setBounds(730,110,230,40);
         //添加支出目的
         add(LoutPP);
-        LoutPP.setBounds(70,250,100,50);
+        LoutPP.setBounds(70,220,100,40);
         add(outPP);
-        outPP.setBounds(200,250,450,200);
+        outPP.setBounds(200,220,450,200);
         add(confirm);
 
     }

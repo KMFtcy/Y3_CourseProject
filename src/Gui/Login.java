@@ -6,6 +6,15 @@ import javax.swing.*;
 
 
 public class Login extends JFrame   {
+
+    static {
+        try {
+            javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     //用户名
     private String username;
     //密码
@@ -44,13 +53,15 @@ public class Login extends JFrame   {
      */
     private void initGUI() {
 
+
+
         // 实例化控件
         lblUsername = new JLabel("用户名：");
-        lblPassword = new JLabel("密    码：");
+        lblPassword = new JLabel("密  码：");
         txtUsername = new JTextField("", 15);
         txtPassword = new JPasswordField("", 15);
-        btnOK = new JButton("登陆[O]");
-        btnCancel = new JButton("取消[C]");
+        btnOK = new JButton("登陆");
+        btnCancel = new JButton("取消");
         panel = (JPanel) getContentPane();
         panel1 = new JPanel();
         panel2 = new JPanel();
@@ -73,10 +84,10 @@ public class Login extends JFrame   {
         panel3.add(btnCancel);
 
         // 设置窗口与控件属性
-        setSize(250, 200); // 设置窗口大小
+        setSize(new Dimension(300,150)); // 设置窗口大小
         setLocationRelativeTo(null);// 让窗口居中
         setResizable(false); // 窗口不可调整大小
-        pack(); // 使窗口恰好容纳组件
+       // 使窗口恰好容纳组件
         setVisible(true); // 让窗口可见
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         /*
@@ -160,6 +171,8 @@ public class Login extends JFrame   {
         // 设置应用程序登录窗口
         App.login = new Login("登录");
         App.status = new Status();
+        Font font = new Font("仿宋",Font.PLAIN,15);
+
     }
 }
 

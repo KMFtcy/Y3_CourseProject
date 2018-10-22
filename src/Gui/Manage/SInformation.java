@@ -12,7 +12,7 @@ import java.util.Vector;
 import javax.swing.*;
 
 /**
- * 学生信息浏览功能         tool 工具的jpanel的构建需要有参数，参数为在学生类中读取的学生的姓名
+ * 学生信息浏览功能         tool 工具的jpanel的构建需要有参数，参数为在学生类中读取的学生的姓名（或替换为ID）
  */
 public class SInformation extends JPanel {
 
@@ -138,23 +138,30 @@ public class SInformation extends JPanel {
         jbd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean flag = false;
-                int count = jPanelVector.size();
-                for (int i = count-1; i >=0; i--) {{
-                    Object obj = jPanelVector.get(i).getComponent(0);
-                    if (obj instanceof JCheckBox) {
-                        flag = ((JCheckBox) obj).isSelected();
+                int choice = JOptionPane.showConfirmDialog(App.home, "确定删除？", "删除", JOptionPane.OK_CANCEL_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    boolean flag = false;
+                    int count = jPanelVector.size();
+                    for (int i = count - 1; i >= 0; i--) {
+                        {
+                            Object obj = jPanelVector.get(i).getComponent(0);  //获取每个复选框
+                            if (obj instanceof JCheckBox) {
+                                flag = ((JCheckBox) obj).isSelected();  //查看复选框是否被选中
+                            }
+                        }
+                        if (flag) {  //若被选中则删除
+                            jpmm.remove(jPanelVector.get(i));
+                            jPanelVector.remove(i);  //移除相应的jpanel
+                            count--;                 //需要添加删除数据库申请
+                            jcka.setSelected(false);
+                        }
                     }
+                    jpmm.repaint();
+                    jpmm.revalidate();
+                }else {
+                    jpmm.repaint();
+                    jpmm.revalidate();
                 }
-                    if (flag) {
-                        jpmm.remove(jPanelVector.get(i));
-                        jPanelVector.remove(i);
-                        count--;
-                        jcka.setSelected(false);
-                    }
-                }
-                jpmm.repaint();
-                jpmm.revalidate();
             }
         });
 
