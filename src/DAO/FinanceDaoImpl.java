@@ -1,4 +1,4 @@
-package com.itheima.dao.impl;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.itheima.util.JDBCUtil;
+import DAO.util.JDBCUtil;
+import bean.Finance;
 
 public class FinanceDaoImpl {
 

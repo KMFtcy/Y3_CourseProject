@@ -1,4 +1,4 @@
-package com.itheima.dao.impl;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,14 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.itheima.util.JDBCUtil;
+import DAO.util.JDBCUtil;
+import bean.Course;
 
 public class CourseDaoImpl {
 	public static Course findById(int Id) {
 		Course result=null;
-		String id=null;
+		int id=0;
 		String name=null;
-		String teacher_id=null;
+		int teacher_id=0;
 		String course_type=null;
 		String course_fee=null;
 		String course_memo=null;
@@ -28,24 +29,25 @@ public class CourseDaoImpl {
 		st.setLong(1, Id);
 		rs=st.executeQuery(sql);
 		while(rs.next()) {
-				id=rs.getString("course_id");
+				id=rs.getInt("course_id");
 				name=rs.getString("course_name");
-				teacher_id=rs.getString("teacher_id");
+				teacher_id=rs.getInt("teacher_id");
 				course_type=rs.getString("course_type");
 				course_fee=rs.getString("course_fee");
 				course_memo=rs.getString("course_memo");
 			}
-		result.setcourse_id("id");
-		result.setcourse_name("name");
-		result.setteacher_id("teacher_id");
-		result.setcourse_type("course_type");
-		result.setcourse_fee("course_fee");
-		result.setcourse_memo("course_memo");
+		result.setId(id);
+		result.setName(name);
+		result.setTeacherId(teacher_id);
+		result.setCourseType(course_type);
+		result.setCourseFee(course_fee);
+		result.setMemo(course_memo);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.release(conn, st, rs);
 		}
+		return result;
 	}
 	public static boolean addCourse(Course course) {
 		boolean flag = false;
@@ -55,8 +57,8 @@ public class CourseDaoImpl {
 			conn = JDBCUtil.getConn();
 			ps = conn.createStatement();
 			String sql="insert into course values("+course.getId()+","+course.getName()+","
-			+course.getTeacher_id()+","+course.getcourse_type()+","+course.getcourse_fee()+","
-			+course.getcourse_memo+")";
+			+course.getTeacherId()+","+course.getCourseType()+","+course.getCourseFee()+","
+			+course.getMemo()+")";
 			ps.executeUpdate(sql);
 			flag=true;
 		} catch (SQLException e) {
