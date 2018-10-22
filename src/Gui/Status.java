@@ -21,9 +21,5 @@ public class Status extends JPanel{
         add(School);
         add(Version);
 
-
-
-
-
     }
 }

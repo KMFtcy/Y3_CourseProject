@@ -74,10 +74,42 @@ public class Home extends JFrame{
         JMCheck = new JMenuItem("查看");
         //主页图片
         image = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\40i58PIC4sf_1024.jpg");
-        //toolbar
-        toolBar = new JToolBar();
         //设置menubar
         setJMenuBar(JMB);
+
+        toolBar = new JToolBar();
+        //创建图表对象
+        ImageIcon imageSmanage = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\14.png");
+        ImageIcon imageCmanage = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\12.png");
+        ImageIcon imageFinace = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\8.png");
+        ImageIcon imageSign = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\7.png");
+        //创建工具栏
+        JButton btSmanage = new JButton("学生管理",imageSmanage);
+        btSmanage.setToolTipText("管理学生信息");
+        btSmanage.setVerticalTextPosition(AbstractButton.BOTTOM);
+        btSmanage.setHorizontalTextPosition(AbstractButton.CENTER);
+
+        JButton btCmanage = new JButton("课程管理",imageCmanage);
+        btCmanage.setToolTipText("管理课程信息");
+        btCmanage.setVerticalTextPosition(AbstractButton.BOTTOM);
+        btCmanage.setHorizontalTextPosition(AbstractButton.CENTER);
+
+        JButton btFinace = new JButton("财务管理",imageFinace);
+        btFinace.setToolTipText("查看财务报表");
+        btFinace.setVerticalTextPosition(AbstractButton.BOTTOM);
+        btFinace.setHorizontalTextPosition(AbstractButton.CENTER);
+
+        JButton btSign = new JButton("签到",imageSign);
+        btSign.setToolTipText("管理学生签到");
+        btSign.setVerticalTextPosition(AbstractButton.BOTTOM);
+        btSign.setHorizontalTextPosition(AbstractButton.CENTER);
+
+        toolBar.add(btSmanage);
+        toolBar.add(btCmanage);
+        toolBar.add(btFinace);
+        toolBar.add(btSign);
+
+
 
         JMB.add(JManage);
         JManage.add(JMStudent);
@@ -105,6 +137,7 @@ public class Home extends JFrame{
         setLocationRelativeTo(null);
         add(jPanel,BorderLayout.CENTER);
         add(status,BorderLayout.SOUTH);
+        add(toolBar,BorderLayout.NORTH);
         //添加所有界面
         JPanel jjjj = new JPanel();//////////////以后可以用图片代替
         jPanel.add(jjjj);
@@ -212,6 +245,41 @@ public class Home extends JFrame{
                 h.repaint();
             }
         });
+
+        btSmanage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.show(jPanel,"1");
+                a.validate();
+                a.repaint();
+            }
+        });
+        btCmanage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.show(jPanel,"5");
+                ee.validate();
+                ee.repaint();
+            }
+        });
+        btFinace.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.show(jPanel,"9");
+                h.validate();
+                h.repaint();
+            }
+        });
+        btSign.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.show(jPanel,"7");
+                g.validate();
+                g.repaint();
+            }
+        });
+
+
 
     }
     void exitSystem(){
