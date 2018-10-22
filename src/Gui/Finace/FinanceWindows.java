@@ -14,7 +14,7 @@ import org.jfree.chart.plot.*;
 public class FinanceWindows extends JPanel {
 	// 这是演示用的数据
 	String[] ListTitle = { "支出记录ID", "支出时间", "支出金额", "支出目的","老师ID" };
-	String[][] Datas = { 
+	String[][] Datas = {
 			{ "123456789", "2018.11.26", "100,000.00", "更换桌椅" ,"520520"},
 			{ "123475725", "2018.9.13", "10,000.00", "更换老师" ,"520520"}
 			};
@@ -77,18 +77,19 @@ public class FinanceWindows extends JPanel {
 				false, // tooltips
 				false); // URLs
 		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//设置标题
-		//设置图例类别字体           
+		//设置图例类别字体
 		jfreechart.getLegend().setItemFont(new Font("" ,Font.BOLD, 15));
 		return jfreechart;
 	}
 	/*
 	 * @初始化表格
 	 * @return:void
-	 * 
+	 *
 	 * */
 	public void initializeTable() {
 		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
-		RecordTable = new JTable(model);
+		RecordTable = new JTable(Datas,ListTitle);
+
 	}
 
 
