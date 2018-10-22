@@ -51,7 +51,7 @@ public class FinanceWindows extends JPanel {
 		UpArea.add(UpRightArea, BorderLayout.EAST);
 		ButtomArea.add(new JScrollPane(RecordTable) );
 		this.add(UpArea, BorderLayout.NORTH);
-		this.add(ButtomArea, BorderLayout.SOUTH);
+		this.add(new JScrollPane(RecordTable), BorderLayout.SOUTH);
 	}
 
 	public void componentInitialize() {
@@ -78,8 +78,12 @@ public class FinanceWindows extends JPanel {
 				PlotOrientation.VERTICAL, true, // legend
 				false, // tooltips
 				false); // URLs
+		
+		//设置图例类别字体,解决汉字的显示问题
+		CategoryPlot plot = jfreechart.getCategoryPlot();
+		plot.getRangeAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//纵坐标汉字
+		plot.getDomainAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//横坐标汉字
 		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//设置标题
-		//设置图例类别字体           
 		jfreechart.getLegend().setItemFont(new Font("" ,Font.BOLD, 15));
 		return jfreechart;
 	}
@@ -91,15 +95,13 @@ public class FinanceWindows extends JPanel {
 	public void initializeTable() {
 		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
 		RecordTable = new JTable(Datas, ListTitle);
-		
-		JFrame frame = new JFrame();
-		
-		frame.add(new JScrollPane(RecordTable));
-		frame.pack();
-		frame.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-
+		JFrame frame = new JFrame();
+		
+		frame.add(new FinanceWindows());
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
