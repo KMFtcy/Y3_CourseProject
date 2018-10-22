@@ -1,4 +1,4 @@
-package com.itheima.dao.impl;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.itheima.util.JDBCUtil;
+import DAO.util.JDBCUtil;
+
+import bean.Student;
 
 public class StudentDaoImpl{
 	/**
@@ -26,9 +28,9 @@ public class StudentDaoImpl{
 		String name=null;
 		String grade=null;
 		String password=null;
-		Timestamp RegistTme1 = null;
+		String RegisteTime = null;
 		String phone=null;
-		Timestamp RegistTme2 = null;
+		String Birth = null;
 		String sex=null;
 		String ad_teacher=null;
 		String email=null;
@@ -36,7 +38,7 @@ public class StudentDaoImpl{
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		String picture=null;
+		byte picture=(Byte) null;
 		//创建数据库连接
 		Connection conn=null;
 		PreparedStatement st=null;
@@ -49,21 +51,13 @@ public class StudentDaoImpl{
 		st = conn.prepareStatement(sql);
 		st.setLong(1, Id);
 		rs=st.executeQuery(sql);
-		/*if(rs.next()) {
-			System.out.println("1");
-		}else {
-			System.out.println("2");
-		}*/
 		while(rs.next()) {
 			id=rs.getInt("student_id");
 			name=rs.getString("name");
 			grade=rs.getString("grade");
-			//password=rs.getString("password");
-			RegistTme1 =new Timestamp(new Date(id, id, id).getTime());
-			//String time=rs.getString("time");
+			RegisteTime=rs.getString("time");
 			phone=rs.getString("phone");
-			RegistTme2 =new Timestamp(new Date(id, id, id).getTime());
-			//String birth=rs.getString("birth");
+			Birth=rs.getString("birth");
 			sex=rs.getString("sex");
 			ad_teacher=rs.getString("ad_teacher");
 			email=rs.getString("email");
@@ -71,29 +65,30 @@ public class StudentDaoImpl{
 			cer_num=rs.getString("cer_num");
 			address=rs.getString("address");
 			note=rs.getString("note");
-			picture=rs.getString("picture");
+			picture=rs.getByte("picture");
 		}
 		result=new Student();
 		result.setId(id);
 		result.setName(name);
 		result.setGrade(grade);
 		//result.setpassword(password);
-		result.setRegistTme1(RegistTme1);
+		result.setRegisteTime(RegisteTime);
 		result.setPhone(phone);
-		result.setBirth(RegistTme2);
+		result.setBirth(Birth);
 		result.setSex(sex);
 		result.setInChargeTeacher(ad_teacher);
 		result.setEmail(email);
-		result.setcerTyoe(cer_type);
-		result.setcerCode(cer_num);
+		result.setCerTypr(cer_type);
+		result.setCerCode(cer_num);
 		result.setAddress(address);
 		result.setNote(note);
-		result.setphoto(picture);//不确定
+		result.setPhoto(picture);//不确定
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
 		JDBCUtil.release(conn, st, rs);
 	}
+		return result;
 }
 
 	List <Student> findByName(String Name){//未完成
@@ -161,11 +156,11 @@ public class StudentDaoImpl{
 		try {
 			conn = JDBCUtil.getConn();
 			st=conn.createStatement();
-			String sql="insert into student values("+student.getId()+","+Name.getName()+","
-			+Grade.getGrade()+","+RegistTme.getRegisTme()+","+Phone.getPhone()+","
-			+Birth.getBirth()+","+Sex.getSex()+","+InChargeTeacher.getInChargeTeacher()+","
-			+Email.getEmail()+","+cerTyoe.getcerTyoe()+","+cerCode.getcerCode()+","+Address.getAddress()+","
-			+Note.getNote()+","photo)";
+			String sql="insert into student values("+student.getId()+","+student.getName()+","
+			+student.getGrade()+","+student.getRegisteTime()+","+student.getPhone()+","
+			+student.getBirth()+","+student.getSex()+","+student.getInChargeTeacher()+","
+			+student.getEmail()+","+student.getCerTypr()+","+student.getCerCode()+","+student.getAddress()+","
+			+student.getNote()+","+student.getPhoto()+")";
 			//photo还没有存取方法
 			st.executeQuery(sql);
 			flag=true;
@@ -173,7 +168,7 @@ public class StudentDaoImpl{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.release(conn, ps);
+			JDBCUtil.release(conn, st);
 		}
 		return flag;
 	}
@@ -513,9 +508,9 @@ public class StudentDaoImpl{
 		PreparedStatement ps=null;
 		try {
 			conn = JDBCUtil.getConn();
-			String sql="update student set note=? where student_id=?";//还没添加定位的字段
+			String sql="update student set photo=? where student_id=?";//还没添加定位的字段
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, note);
+			ps.setString(1, photo);
 			ps.setLong(2, id);
 			ps.executeUpdate();
 			flag=true;

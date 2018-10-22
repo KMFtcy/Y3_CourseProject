@@ -1,4 +1,4 @@
-package com.itheima.dao.impl;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import com.itheima.util.JDBCUtil;
+import DAO.util.JDBCUtil;
+import bean.Teacher;
 
 public class TeacherDaoImpl{
 	/**
@@ -17,7 +18,7 @@ public class TeacherDaoImpl{
 	 */
 	public static Teacher findById(int Id) {
 		Teacher result=null;
-		String id=null;
+		int id=0;
 		String name=null;
 		String sex=null;
 		String time=null;
@@ -39,7 +40,7 @@ public class TeacherDaoImpl{
 		st.setLong(1, Id);
 		rs=st.executeQuery(sql);
 		while(rs.next()) {
-				id=rs.getString("teacher_id");
+				id=rs.getInt("teacher_id");
 				name=rs.getString("teacher_name");
 				sex=rs.getString("sex");
 				time=rs.getString("time");
@@ -50,21 +51,22 @@ public class TeacherDaoImpl{
 				address=rs.getString("address");
 				note=rs.getString("note");
 			}
-		result.setteacer_id("id");
-		result.setteacher_name("name");
-		result.setsex("sex");
-		result.settime("time");
-		result.setphone("phone");
-		result.setemail("email");
-		result.setcer_type("cer_type");
-		result.setcer_num("cer_num");
-		result.setaddress("address");
-		result.setnote("note");
+		result.setId(id);
+		result.setName(name);
+		result.setSex(sex);
+		result.setTime(time);
+		result.setPhone(phone);
+		result.setEmail(email);
+		result.setCerType(cer_type);
+		result.setCerNum(cer_num);
+		result.setAddress(address);
+		result.setNote(note);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.release(conn, st, rs);
 		}
+		return result;
 	}
 	/**
 	 * 添加新教师
@@ -80,8 +82,8 @@ public class TeacherDaoImpl{
 			ps = conn.createStatement();
 			String sql="insert into teacher values("+teacher.getId()+","+teacher.getName()+","
 			+teacher.getSex()+","+teacher.getTime()+","+teacher.getPhone()+","
-			+teacher.getEmail+","+teacher.getcerType+","+teacher.getcerNum+","
-			+teacher.getAddress+","+teacher.getNote+")";
+			+teacher.getEmail()+","+teacher.getCerType()+","+teacher.getCerNum()+","
+			+teacher.getAddress()+","+teacher.getNote()+")";
 			
 			ps.executeUpdate(sql);
 			flag=true;

@@ -16,7 +16,7 @@ public class Student {
 	private String cerCode;
 	private String Address;
 	private String Note;
-	private byte[] Photo;
+	private byte Photo;
 
 	public int getId() {
 		return Id;
@@ -122,12 +122,12 @@ public class Student {
 		Note = note;
 	}
 
-	public byte[] getPhoto() {
+	public byte getPhoto() {
 		return Photo;
 	}
 
-	public void setPhoto(byte[] photo) {
-		Photo = photo;
+	public void setPhoto(byte picture) {
+		Photo = picture;
 	}
 
 	@Override
