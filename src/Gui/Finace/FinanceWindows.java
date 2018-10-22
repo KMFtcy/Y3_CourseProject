@@ -44,6 +44,7 @@ public class FinanceWindows extends JPanel {
 		componentInitialize();
 		
 		//添加组件进窗口
+		UpLeftArea.setSize(200, 200);
 		UpLeftArea.add(FinanceChart);
 		UpRightArea.add(new JLabel("总收入：305,000"),BorderLayout.NORTH);
 		UpRightArea.add(new JLabel("总支出：237,000"),BorderLayout.SOUTH);
@@ -89,19 +90,18 @@ public class FinanceWindows extends JPanel {
 	}
 	/*
 	 * @初始化表格
-	 * @return:void
 	 * 
 	 * */
 	public void initializeTable() {
 		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
 		RecordTable = new JTable(Datas, ListTitle);
 	}
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		
-		frame.add(new FinanceWindows());
-		frame.pack();
-		frame.setVisible(true);
-	}
+//测试用
+//	public static void main(String[] args) {
+//		JFrame frame = new JFrame();
+//		
+//		frame.add(new FinanceWindows());
+//		frame.pack();
+//		frame.setVisible(true);
+//	}
 }
