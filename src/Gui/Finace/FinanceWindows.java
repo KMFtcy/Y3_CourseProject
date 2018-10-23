@@ -11,14 +11,14 @@ import org.jfree.data.category.*;
 import org.jfree.data.general.*;
 import org.jfree.chart.plot.*;
 
-public class FinanceWindows extends JPanel {
+public class FinanceWindows extends JFrame {
 	// 杩欐槸婕旂ず鐢ㄧ殑鏁版嵁
-	String[] ListTitle = { "鏀嚭璁板綍ID", "鏀嚭鏃堕棿", "鏀嚭閲戦", "鏀嚭鐩殑","鑰佸笀ID" };
+	String[] ListTitle = { "支出记录ID", "支出时间", "支出金额", "支出目的","老师ID" };
 	String[][] Datas = {
 			{ "123456789", "2018.11.26", "100,000.00", "鏇存崲妗屾" ,"520520"},
 			{ "123475725", "2018.9.13", "10,000.00", "鏇存崲鑰佸笀" ,"520520"}
 			};
-	String[] rowKeys = { "A骞冲彴" };
+	String[] rowKeys = { "A平台" };
 	String[] colKeys = { "1st", "2nd", "3th", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
 			"11th", "12th"};
 	double[][] data = {
@@ -44,7 +44,7 @@ public class FinanceWindows extends JPanel {
 		componentInitialize();
 		
 		//娣诲姞缁勪欢杩涚獥鍙�
-		UpLeftArea.setPreferredSize(new Dimension(700,450));
+		UpLeftArea.setPreferredSize(new Dimension(500,450));
 		UpLeftArea.add(FinanceChart);
 		UpRightArea.add(new JLabel("总收入：305,000"),BorderLayout.NORTH);
 		UpRightArea.add(new JLabel("总支出：237,000"),BorderLayout.SOUTH);
@@ -72,9 +72,9 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public JFreeChart createChart(CategoryDataset categoryDataset) {
-		JFreeChart jfreechart = ChartFactory.createLineChart("鏀跺叆缁熻鍥�", // 鏍囬
-				"骞村垎", // categoryAxisLabel 锛坈ategory杞达紝妯酱锛孹杞存爣绛撅級
-				"鏁伴噺", // valueAxisLabel锛坴alue杞达紝绾佃酱锛孻杞寸殑鏍囩锛�
+		JFreeChart jfreechart = ChartFactory.createLineChart("月份收入", // 鏍囬
+				"（十万）元", // categoryAxisLabel 锛坈ategory杞达紝妯酱锛孹杞存爣绛撅級
+				"月份", // valueAxisLabel锛坴alue杞达紝绾佃酱锛孻杞寸殑鏍囩锛�
 				categoryDataset, // Datatest
 				PlotOrientation.VERTICAL, true, // legend
 				false, // tooltips
@@ -82,8 +82,8 @@ public class FinanceWindows extends JPanel {
 		
 		//璁剧疆鍥句緥绫诲埆瀛椾綋,瑙ｅ喅姹夊瓧鐨勬樉绀洪棶棰�
 		CategoryPlot plot = jfreechart.getCategoryPlot();
-		plot.getRangeAxis().setLabelFont(new  Font("瀹嬩綋", Font.PLAIN, 12));//绾靛潗鏍囨眽瀛�
-		plot.getDomainAxis().setLabelFont(new  Font("瀹嬩綋", Font.PLAIN, 12));//妯潗鏍囨眽瀛�
+		plot.getRangeAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//绾靛潗鏍囨眽瀛�
+		plot.getDomainAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//妯潗鏍囨眽瀛�
 		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//璁剧疆鏍囬
 
 		jfreechart.getLegend().setItemFont(new Font("" ,Font.BOLD, 15));

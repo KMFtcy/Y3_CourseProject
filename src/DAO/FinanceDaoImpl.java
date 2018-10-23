@@ -13,7 +13,7 @@ import bean.Course;
 import bean.Finance;
 
 public class FinanceDaoImpl {
-	List <Finance> findAllFinance() {
+	public static List <Finance> findAllFinance() {
 		List<Finance> f=new ArrayList<>();
 		Finance result=null;
 		int theId = 0;

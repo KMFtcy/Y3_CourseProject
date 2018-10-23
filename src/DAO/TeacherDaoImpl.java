@@ -20,7 +20,7 @@ public class TeacherDaoImpl{
 	 * 无参
 	 * 返回ArrayList数组
 	 */
-	List <Teacher> findAllCourse() {
+	public static List <Teacher> findAllCourse() {
 		List<Teacher> t=new ArrayList<>();
 		Teacher result=null;
 		int id=0;
@@ -129,7 +129,7 @@ public class TeacherDaoImpl{
 		}
 		return result;
 	}
-	List <Teacher> findByName(String Name){
+	public static List <Teacher> findByName(String Name){
 		List<Teacher> tc = new ArrayList<>();
 		Teacher result=null;
 		int id=0;

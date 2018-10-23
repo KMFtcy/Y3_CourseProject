@@ -14,7 +14,7 @@ import bean.Student;
 import bean.Teacher;
 
 public class SignOnDaoImpl {
-	List<Student> findByCourse(Course course){
+	public static List<Student> findByCourse(Course course){
 		Student result=null;
 		List<Student> sd = new ArrayList<>();
 		int i=0;
