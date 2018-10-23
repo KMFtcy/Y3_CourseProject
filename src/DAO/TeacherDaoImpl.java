@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import DAO.util.JDBCUtil;
+import bean.Student;
 import bean.Teacher;
 
 public class TeacherDaoImpl{
@@ -67,6 +70,59 @@ public class TeacherDaoImpl{
 			JDBCUtil.release(conn, st, rs);
 		}
 		return result;
+	}
+	List <Teacher> findByName(String Name){
+		List<Teacher> tc = new ArrayList<>();
+		Teacher result=null;
+		int id=0;
+		String name=null;
+		String sex=null;
+		String time=null;
+		String phone=null;
+		String email=null;
+		String cer_type=null;
+		String cer_num=null;
+		String address=null;
+		String note=null;
+		//连接数据库
+		Connection conn =null;
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		try {
+			conn = JDBCUtil.getConn();
+			String sql="select * from teacher where teacher_name=?";
+			st = conn.prepareStatement(sql);
+			st.setString(1, Name);
+			rs=st.executeQuery();
+			while(rs.next()) {
+					id=rs.getInt("teacher_id");
+					name=rs.getString("teacher_name");
+					sex=rs.getString("sex");
+					time=rs.getString("time");
+					phone=rs.getString("phone");
+					email=rs.getString("email");
+					cer_type=rs.getString("cer_type");
+					cer_num=rs.getString("cer_num");
+					address=rs.getString("address");
+					note=rs.getString("note");
+					result.setId(id);
+					result.setName(name);
+					result.setSex(sex);
+					result.setTime(time);
+					result.setPhone(phone);
+					result.setEmail(email);
+					result.setCerType(cer_type);
+					result.setCerNum(cer_num);
+					result.setAddress(address);
+					result.setNote(note);
+				tc.add(result);
+			}
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return tc;
 	}
 	/**
 	 * 添加新教师

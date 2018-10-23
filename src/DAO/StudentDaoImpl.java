@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -82,7 +83,7 @@ public class StudentDaoImpl{
 		result.setCerCode(cer_num);
 		result.setAddress(address);
 		result.setNote(note);
-		result.setPhoto(picture);//不确定
+		result.setPhoto(picture);
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
@@ -91,15 +92,16 @@ public class StudentDaoImpl{
 		return result;
 }
 
-	List <Student> findByName(String Name){//未完成
-		List<Student> sd = new List<Student>();
+	List <Student> findByName(String Name){
+		List<Student> sd = new ArrayList<>();
+		Student result=null;
 		int id=0;
 		String name=null;
 		String grade=null;
 		String password=null;
-		Timestamp RegistTme1 = null;
+		String RegisteTime = null;
 		String phone=null;
-		Timestamp RegistTme2 = null;
+		String Birth = null;
 		String sex=null;
 		String ad_teacher=null;
 		String email=null;
@@ -107,28 +109,24 @@ public class StudentDaoImpl{
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		String picture=null;
+		byte picture=(Byte) null;
 		//连接数据库
 		Connection conn =null;
 		PreparedStatement st=null;
 		ResultSet rs=null;
 		try {
 			conn = JDBCUtil.getConn();
-			
 			String sql="select * from student where name=?";
 			st = conn.prepareStatement(sql);
 			st.setString(1,Name);
-			rs=st.executeQuery(sql);
+			rs=st.executeQuery();
 			while(rs.next()) {
 				id=rs.getInt("student_id");
 				name=rs.getString("name");
 				grade=rs.getString("grade");
-				//password=rs.getString("password");
-				RegistTme1 =new Timestamp(new Date(id, id, id).getTime());
-				//String time=rs.getString("time");
+				String time=rs.getString("time");
 				phone=rs.getString("phone");
-				RegistTme2 =new Timestamp(new Date(id, id, id).getTime());
-				//String birth=rs.getString("birth");
+				String birth=rs.getString("birth");
 				sex=rs.getString("sex");
 				ad_teacher=rs.getString("ad_teacher");
 				email=rs.getString("email");
@@ -136,12 +134,30 @@ public class StudentDaoImpl{
 				cer_num=rs.getString("cer_num");
 				address=rs.getString("address");
 				note=rs.getString("note");
-				picture=rs.getString("picture");
+				picture=rs.getByte("picture");
+				result=new Student();
+				result.setId(id);
+				result.setName(name);
+				result.setGrade(grade);
+				result.setRegisteTime(RegisteTime);
+				result.setPhone(phone);
+				result.setBirth(Birth);
+				result.setSex(sex);
+				result.setInChargeTeacher(ad_teacher);
+				result.setEmail(email);
+				result.setCerTypr(cer_type);
+				result.setCerCode(cer_num);
+				result.setAddress(address);
+				result.setNote(note);
+				result.setPhoto(picture);
+				sd.add(result);
 			}
+			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return sd;
 	}
 	/**
 	 * 添加新学员

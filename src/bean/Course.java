@@ -5,7 +5,7 @@ public class Course {
 	private String Name;
 	private int TeacherId;
 	private String CourseType;
-	private String CourseFee;
+	private int CourseFee;
 	private String Memo;
 
 	public int getId() {
@@ -40,11 +40,11 @@ public class Course {
 		CourseType = courseType;
 	}
 
-	public String getCourseFee() {
+	public int getCourseFee() {
 		return CourseFee;
 	}
 
-	public void setCourseFee(String courseFee) {
+	public void setCourseFee(int courseFee) {
 		CourseFee = courseFee;
 	}
 
