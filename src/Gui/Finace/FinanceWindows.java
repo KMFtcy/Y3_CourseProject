@@ -40,7 +40,7 @@ public class FinanceWindows extends JPanel {
 		JPanel UpRightArea = new JPanel();
 		JPanel ButtomArea = new JPanel();
 		UpArea.setLayout(new BorderLayout());
-		UpRightArea.setLayout(new BorderLayout());
+		UpRightArea.setLayout(new GridLayout(2,1));
 		componentInitialize();
 		
 		//添加组件进窗口
