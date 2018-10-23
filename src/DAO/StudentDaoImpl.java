@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -242,11 +243,11 @@ public class StudentDaoImpl{
 		try {
 			conn = JDBCUtil.getConn();
 			st=conn.createStatement();
-			String sql="insert into student values("+student.getId()+","+student.getName()+","
-			+student.getGrade()+","+student.getRegisteTime()+","+student.getPhone()+","
-			+student.getBirth()+","+student.getSex()+","+student.getInChargeTeacher()+","
-			+student.getEmail()+","+student.getCerTypr()+","+student.getCerCode()+","+student.getAddress()+","
-			+student.getNote()+","+student.getPhoto()+")";
+			String sql="insert into student values("+student.getId()+",'"+student.getName()+"','"
+			+student.getGrade()+"',"+student.getRegisteTime()+",'"+student.getPhone()+"',"
+			+student.getBirth()+",'"+student.getSex()+"','"+student.getInChargeTeacher()+"','"
+			+student.getEmail()+"','"+student.getCerTypr()+"','"+student.getCerCode()+"','"+student.getAddress()+"','"
+			+student.getNote()+"')";
 			//photo还没有存取方法
 			st.executeQuery(sql);
 			flag=true;
