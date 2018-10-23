@@ -7,18 +7,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Vector;
 
 import DAO.*;
 import bean.SignRecord;
 
 public class ArrangeMM extends JPanel {
 	// 演示数据
-	String[] Course = { "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文",
-			"高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文",
-			"高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文" };
-	String[] Teacher = { "唐朝阳", "罗豪", "杨兆铭", "万旭光", "陆文翰", "张翔彬" };
-	String[] Student = { "小明", "张三", "李四", "王五" };
-
+//	String[] Course = { "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文",
+//			"高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文",
+//			"高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文", "高一语文", "高一数学", "高三语文", "高二语文" };
+//	String[] Teacher = { "唐朝阳", "罗豪", "杨兆铭", "万旭光", "陆文翰", "张翔彬" };
+//	String[] Student = { "小明", "张三", "李四", "王五" };
+	Vector<String> Course;
+	Vector<String> Teacher;
+	Vector<String> Student;
 	JList CourseList;
 	JList TeacherList;
 	JList StudentList;
@@ -81,10 +84,22 @@ public class ArrangeMM extends JPanel {
 	public void componentInitialize() {
 		initializeSearchTextField();
 		initializeButton();
+		ArrayList<bean.Course> allCourseList= (ArrayList<bean.Course>) DAO.SignOnDaoImpl.getCourseAll();
+		for(bean.Course i:allCourseList) {
+			Course.add(i.getName());
+		}
 		CourseList = new JList(Course);
 		CourseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ArrayList<bean.Teacher> allTeacherList= (ArrayList<bean.Teacher>) DAO.TeacherDaoImpl.findAllCourse();
+		for(bean.Teacher i:allTeacherList) {
+			Teacher.add(i.getName());
+		}
 		TeacherList = new JList(Teacher);
 		TeacherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ArrayList<bean.Student> allStudentList= (ArrayList<bean.Student>) DAO.StudentDaoImpl.findAllStudent();
+		for(bean.Student i:allStudentList) {
+			Student.add(i.getName());
+		}
 		StudentList = new JList(Student);
 		StudentList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
