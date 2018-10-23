@@ -108,6 +108,10 @@ public class SignOnDaoImpl {
 		}
 		return (List<Student>) result;
 }
+	/**
+	 * 得到所有course数据
+	 * @return	
+	 */
 	List<Course> getCourseAll(){
 		List<Course> c = new ArrayList<>();
 		Course result=null;

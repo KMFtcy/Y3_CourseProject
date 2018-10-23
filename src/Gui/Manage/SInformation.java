@@ -1,6 +1,8 @@
 package Gui.Manage;
+import DAO.StudentDaoImpl;
 import Gui.App;
 import Gui.Home;
+import bean.Student;
 import javafx.beans.binding.ObjectBinding;
 
 import java.awt.*;
@@ -106,6 +108,38 @@ public class SInformation extends JPanel {
                         ToolS ts = new ToolS();
                         //设置标签信息
                         jPanelVector.add(ts.JPanel("sssss"));
+                        //数据库
+                        Student student = new Student();
+                        student.setId(Integer.parseInt(DS.ID.getText()));
+                        student.setName(DS.Name.getText());
+                        student.setAddress(DS.Address.getText());
+                        student.setSex(DS.Gender.getText());
+                        student.setBirth(DS.Birthday.getText());
+                        student.setRegisteTime(DS.RegistTime.getText());
+                        student.setInChargeTeacher(DS.InChargeTeacher.getText());
+                        student.setCerCode(DS.CardID.getText());
+                        student.setCerTypr(DS.CardType.getText());
+                        student.setEmail(DS.Email.getText());
+                        student.setPhone(DS.PhoneNumber.getText());
+                        student.setGrade(DS.StudentType.getText());
+                        student.setNote(DS.Memo.getText());
+                        StudentDaoImpl.addStudent(student);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         ts.jln.setText(DS.Name.getText());
                         ts.jlno.setText(DS.ID.getText());
                         ts.jlc.setText(DS.StudentType.getText());

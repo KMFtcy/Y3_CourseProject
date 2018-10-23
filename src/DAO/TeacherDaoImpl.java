@@ -16,6 +16,64 @@ import bean.Teacher;
 
 public class TeacherDaoImpl{
 	/**
+	 * 得到所有老师信息
+	 * 无参
+	 * 返回ArrayList数组
+	 */
+	List <Teacher> findAllCourse() {
+		List<Teacher> t=new ArrayList<>();
+		Teacher result=null;
+		int id=0;
+		String name=null;
+		String sex=null;
+		String time=null;
+		String phone=null;
+		String email=null;
+		String cer_type=null;
+		String cer_num=null;
+		String address=null;
+		String note=null;
+		//连接数据库
+		Connection conn=null;
+		Statement st=null;
+		ResultSet rs=null;
+		//查询
+		try {
+		conn = JDBCUtil.getConn();
+		conn.createStatement();
+		String sql="select * from teacher";
+		rs=st.executeQuery(sql);
+		while(rs.next()) {
+				id=rs.getInt("teacher_id");
+				name=rs.getString("teacher_name");
+				sex=rs.getString("sex");
+				time=rs.getString("time");
+				phone=rs.getString("phone");
+				email=rs.getString("email");
+				cer_type=rs.getString("cer_type");
+				cer_num=rs.getString("cer_num");
+				address=rs.getString("address");
+				note=rs.getString("note");
+				result.setId(id);
+				result.setName(name);
+				result.setSex(sex);
+				result.setTime(time);
+				result.setPhone(phone);
+				result.setEmail(email);
+				result.setCerType(cer_type);
+				result.setAddress(address);
+				result.setCerNum(cer_num);
+				result.setNote(note);
+				t.add(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.release(conn, st, rs);
+		}
+		return t;
+	}
+	/**
 	 * 查看老师信息
 	 * @param Id传入学生id
 	 */

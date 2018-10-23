@@ -7,16 +7,87 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import DAO.util.JDBCUtil;
-
+import bean.Course;
 import bean.Student;
 
 public class StudentDaoImpl{
+	/**
+	 * 得到所有学生的数据
+	 * @return Student类型的所有学生数据的动态数组
+	 */
+	List <Student> findAllStudent() {
+		List<Student> sd=new ArrayList<>();
+		Student result=null;
+		int id=0;
+		String name=null;
+		String grade=null;
+		String password=null;
+		String RegisteTime = null;
+		String phone=null;
+		String Birth = null;
+		String sex=null;
+		String ad_teacher=null;
+		String email=null;
+		String cer_type=null;
+		String cer_num=null;
+		String address=null;
+		String note=null;
+		byte picture=(Byte) null;
+		//连接数据库
+		Connection conn =null;
+		Statement st=null;
+		ResultSet rs=null;
+		try {
+			conn = JDBCUtil.getConn();
+			conn.createStatement();
+			String sql="select * from student";
+			rs=st.executeQuery(sql);
+			while(rs.next()) {
+				id=rs.getInt("student_id");
+				name=rs.getString("name");
+				grade=rs.getString("grade");
+				String time=rs.getString("time");
+				phone=rs.getString("phone");
+				String birth=rs.getString("birth");
+				sex=rs.getString("sex");
+				ad_teacher=rs.getString("ad_teacher");
+				email=rs.getString("email");
+				cer_type=rs.getString("cer_type");
+				cer_num=rs.getString("cer_num");
+				address=rs.getString("address");
+				note=rs.getString("note");
+				picture=rs.getByte("picture");
+				result=new Student();
+				result.setId(id);
+				result.setName(name);
+				result.setGrade(grade);
+				result.setRegisteTime(RegisteTime);
+				result.setPhone(phone);
+				result.setBirth(Birth);
+				result.setSex(sex);
+				result.setInChargeTeacher(ad_teacher);
+				result.setEmail(email);
+				result.setCerTypr(cer_type);
+				result.setCerCode(cer_num);
+				result.setAddress(address);
+				result.setNote(note);
+				result.setPhoto(picture);
+				sd.add(result);
+			}
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return sd;
+}
 	/**
 	 * 查找学员信息
 	 * @param id传入学生id
@@ -172,11 +243,11 @@ public class StudentDaoImpl{
 		try {
 			conn = JDBCUtil.getConn();
 			st=conn.createStatement();
-			String sql="insert into student values("+student.getId()+","+student.getName()+","
-			+student.getGrade()+","+student.getRegisteTime()+","+student.getPhone()+","
-			+student.getBirth()+","+student.getSex()+","+student.getInChargeTeacher()+","
-			+student.getEmail()+","+student.getCerTypr()+","+student.getCerCode()+","+student.getAddress()+","
-			+student.getNote()+","+student.getPhoto()+")";
+			String sql="insert into student values("+student.getId()+",'"+student.getName()+"','"
+			+student.getGrade()+"',"+student.getRegisteTime()+",'"+student.getPhone()+"',"
+			+student.getBirth()+",'"+student.getSex()+"','"+student.getInChargeTeacher()+"','"
+			+student.getEmail()+"','"+student.getCerTypr()+"','"+student.getCerCode()+"','"+student.getAddress()+"','"
+			+student.getNote()+"')";
 			//photo还没有存取方法
 			st.executeQuery(sql);
 			flag=true;
