@@ -1,4 +1,4 @@
-package com.itheima.util;
+package DAO.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
