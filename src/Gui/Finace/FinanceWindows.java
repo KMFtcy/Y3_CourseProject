@@ -3,28 +3,28 @@ package Gui.Finace;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
-//ÕâÊÇjfreÍ¼±íµÄ°ü
+//è¿™æ˜¯jfreå›¾è¡¨çš„åŒ…
 import org.jfree.chart.*;
-//ÕâÊÇjfreeÉèÖÃÓÃÀ´ÉèÖÃÍ¼±íµÄ
+//è¿™æ˜¯jfreeè®¾ç½®ç”¨æ¥è®¾ç½®å›¾è¡¨çš„
 import org.jfree.data.category.*;
-//ÕâÊÇjfreeÓÃÀ´ÉèÖÃÊı¾İ¶ÔÏóµÄ
+//è¿™æ˜¯jfreeç”¨æ¥è®¾ç½®æ•°æ®å¯¹è±¡çš„
 import org.jfree.data.general.*;
 import org.jfree.chart.plot.*;
 
 public class FinanceWindows extends JPanel {
-	// ÕâÊÇÑİÊ¾ÓÃµÄÊı¾İ
-	String[] ListTitle = { "Ö§³ö¼ÇÂ¼ID", "Ö§³öÊ±¼ä", "Ö§³ö½ğ¶î", "Ö§³öÄ¿µÄ","ÀÏÊ¦ID" };
-	String[][] Datas = { 
-			{ "123456789", "2018.11.26", "100,000.00", "¸ü»»×ÀÒÎ" ,"520520"},
-			{ "123475725", "2018.9.13", "10,000.00", "¸ü»»ÀÏÊ¦" ,"520520"}
+	// è¿™æ˜¯æ¼”ç¤ºç”¨çš„æ•°æ®
+	String[] ListTitle = { "æ”¯å‡ºè®°å½•ID", "æ”¯å‡ºæ—¶é—´", "æ”¯å‡ºé‡‘é¢", "æ”¯å‡ºç›®çš„","è€å¸ˆID" };
+	String[][] Datas = {
+			{ "123456789", "2018.11.26", "100,000.00", "æ›´æ¢æ¡Œæ¤…" ,"520520"},
+			{ "123475725", "2018.9.13", "10,000.00", "æ›´æ¢è€å¸ˆ" ,"520520"}
 			};
-	String[] rowKeys = { "AÆ½Ì¨" };
+	String[] rowKeys = { "Aå¹³å°" };
 	String[] colKeys = { "1st", "2nd", "3th", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
 			"11th", "12th"};
 	double[][] data = {
 			{ 4, 3, 1, 1, 1, 1, 2, 2, 2, 1, 8, 2, }
 	};
-	//ÕâÊÇ´°¿ÚµÄÒ»Ğ©ÊôĞÔ
+	//è¿™æ˜¯çª—å£çš„ä¸€äº›å±æ€§
 	ChartPanel FinanceChart;
 	JTable RecordTable;
 
@@ -34,7 +34,7 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public void setComponent() {
-		//³õÊ¼»¯×é¼ş
+		//åˆå§‹åŒ–ç»„ä»¶
 		JPanel UpArea = new JPanel();
 		JPanel UpLeftArea = new JPanel();
 		JPanel UpRightArea = new JPanel();
@@ -43,11 +43,11 @@ public class FinanceWindows extends JPanel {
 		UpRightArea.setLayout(new GridLayout(2,1));
 		componentInitialize();
 		
-		//Ìí¼Ó×é¼ş½ø´°¿Ú
+		//æ·»åŠ ç»„ä»¶è¿›çª—å£
 		UpLeftArea.setPreferredSize(new Dimension(700,450));
 		UpLeftArea.add(FinanceChart);
-		UpRightArea.add(new JLabel("×ÜÊÕÈë£º305,000"),BorderLayout.NORTH);
-		UpRightArea.add(new JLabel("×ÜÖ§³ö£º237,000"),BorderLayout.SOUTH);
+		UpRightArea.add(new JLabel("æ€»æ”¶å…¥ï¼š305,000"),BorderLayout.NORTH);
+		UpRightArea.add(new JLabel("æ€»æ”¯å‡ºï¼š237,000"),BorderLayout.SOUTH);
 		UpArea.add(UpLeftArea, BorderLayout.WEST);
 		UpArea.add(UpRightArea, BorderLayout.EAST);
 		ButtomArea.add(new JScrollPane(RecordTable) );
@@ -61,9 +61,9 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public void initializeChart() {
-		// ²½Öè1£º´´½¨CategoryDataset¶ÔÏó£¨×¼±¸Êı¾İ£©
+		// æ­¥éª¤1ï¼šåˆ›å»ºCategoryDatasetå¯¹è±¡ï¼ˆå‡†å¤‡æ•°æ®ï¼‰
 		CategoryDataset dataset = createDataset();
-		// ²½Öè2£º¸ù¾İDataset Éú³ÉJFreeChart¶ÔÏó£¬ÒÔ¼°×öÏàÓ¦µÄÉèÖÃ
+		// æ­¥éª¤2ï¼šæ ¹æ®Dataset ç”ŸæˆJFreeChartå¯¹è±¡ï¼Œä»¥åŠåšç›¸åº”çš„è®¾ç½®
 		FinanceChart = new ChartPanel(createChart(dataset));
 	}
 
@@ -72,29 +72,26 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public JFreeChart createChart(CategoryDataset categoryDataset) {
-		JFreeChart jfreechart = ChartFactory.createLineChart("ÊÕÈëÍ³¼ÆÍ¼", // ±êÌâ
-				"Äê·Ö", // categoryAxisLabel £¨categoryÖá£¬ºáÖá£¬XÖá±êÇ©£©
-				"ÊıÁ¿", // valueAxisLabel£¨valueÖá£¬×İÖá£¬YÖáµÄ±êÇ©£©
+		JFreeChart jfreechart = ChartFactory.createLineChart("æ”¶å…¥ç»Ÿè®¡å›¾", // æ ‡é¢˜
+				"å¹´åˆ†", // categoryAxisLabel ï¼ˆcategoryè½´ï¼Œæ¨ªè½´ï¼ŒXè½´æ ‡ç­¾ï¼‰
+				"æ•°é‡", // valueAxisLabelï¼ˆvalueè½´ï¼Œçºµè½´ï¼ŒYè½´çš„æ ‡ç­¾ï¼‰
 				categoryDataset, // Datatest
 				PlotOrientation.VERTICAL, true, // legend
 				false, // tooltips
 				false); // URLs
 		
-		//ÉèÖÃÍ¼ÀıÀà±ğ×ÖÌå,½â¾öºº×ÖµÄÏÔÊ¾ÎÊÌâ
+		//è®¾ç½®å›¾ä¾‹ç±»åˆ«å­—ä½“,è§£å†³æ±‰å­—çš„æ˜¾ç¤ºé—®é¢˜
 		CategoryPlot plot = jfreechart.getCategoryPlot();
-		plot.getRangeAxis().setLabelFont(new  Font("ËÎÌå", Font.PLAIN, 12));//×İ×ø±êºº×Ö
-		plot.getDomainAxis().setLabelFont(new  Font("ËÎÌå", Font.PLAIN, 12));//ºá×ø±êºº×Ö
-		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//ÉèÖÃ±êÌâ
+		plot.getRangeAxis().setLabelFont(new  Font("å®‹ä½“", Font.PLAIN, 12));//çºµåæ ‡æ±‰å­—
+		plot.getDomainAxis().setLabelFont(new  Font("å®‹ä½“", Font.PLAIN, 12));//æ¨ªåæ ‡æ±‰å­—
+		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//è®¾ç½®æ ‡é¢˜
+
 		jfreechart.getLegend().setItemFont(new Font("" ,Font.BOLD, 15));
 		return jfreechart;
 	}
 	/*
-	 * @³õÊ¼»¯±í¸ñ
-	 * 
-	 * */
-	public void initializeTable() {
-		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
-		RecordTable = new JTable(Datas, ListTitle);
+	 * @åˆå§‹åŒ–è¡¨æ ¼
+
 	}
 //	public static void main(String[] args) {
 //		JFrame frame = new JFrame();

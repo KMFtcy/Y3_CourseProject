@@ -1,11 +1,17 @@
 package Gui.Sign;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class SignIn extends JPanel {
-	String[] Classes= {"高一生物冲刺班","高二数学竞赛班","高一语文基础班"};
-	String[] Students = {"张三","李四","王五","宋六"};
-	String TeacherName = "孙老师";
+	String[] Classes= {"高一生物冲刺班","高二数学竞赛班","高一语文基础班"};  //替换为从数据库中读出课程列表
+	String[] Students = {"张三","李四","王五","宋六"}; //只声明不定义  根据课程名称读出
+	String TeacherName;  // 只声明不定义   从数据库读出，根据课程名称
 	JLabel Teacher;
 	JList ClassList;
 	JList StudentList;
@@ -14,7 +20,6 @@ public class SignIn extends JPanel {
 	
 	public SignIn(){
 		super();
-		this.setSize(1000,1000);
 		this.setLayout(new BorderLayout());
 		setComponent();
 		this.setVisible(true);
@@ -46,13 +51,38 @@ public class SignIn extends JPanel {
 	public void componentInitialize() {
 		ClassList = new JList(Classes);
 		ClassList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		StudentList = new JList(Students);
+		// 学生跟老师添加放在监听器中
+		StudentList = new JList();
 		StudentList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
-		Teacher =new JLabel( "老师姓名：" + TeacherName);
+		Teacher =new JLabel();
 		
 		SignOn = new JButton("签到");
 		Cancel = new JButton("取消");
+
+		ClassList.addListSelectionListener(e -> {
+		    if(!e.getValueIsAdjusting()){
+		    TeacherName = (String) ClassList.getSelectedValue();
+            Teacher.setText("老师姓名："+TeacherName);//改为从数据库中获取的该课程的教师姓名
+            Students[1] = Students[1]+TeacherName;
+            StudentList.setListData(Students);}
+        });
+
+		SignOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vector<String> SignOn = new Vector<>();
+
+                SignOn.add( ClassList.getSelectedValue().toString());
+                ArrayList arrayList;
+                arrayList = (ArrayList) StudentList.getSelectedValuesList();
+                for(int i = 0; i<arrayList.size(); i++){
+                    SignOn.add((String) arrayList.get(i));
+                }
+                SignOn.add(Teacher.getText());
+                System.out.println(SignOn);
+            }
+        });
+
 	}
 
 
