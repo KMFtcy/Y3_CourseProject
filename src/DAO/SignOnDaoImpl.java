@@ -112,7 +112,7 @@ public class SignOnDaoImpl {
 	 * 得到所有course数据
 	 * @return	
 	 */
-	List<Course> getCourseAll(){
+	public static List<Course> getCourseAll(){
 		List<Course> c = new ArrayList<>();
 		Course result=null;
 		int id=0;

@@ -22,7 +22,7 @@ public class StudentDaoImpl{
 	 * 得到所有学生的数据
 	 * @return Student类型的所有学生数据的动态数组
 	 */
-	List <Student> findAllStudent() {
+	public static List <Student> findAllStudent() {
 		List<Student> sd=new ArrayList<>();
 		Student result=null;
 		int id=0;
@@ -163,7 +163,7 @@ public class StudentDaoImpl{
 		return result;
 }
 
-	List <Student> findByName(String Name){
+	public static List <Student> findByName(String Name){
 		List<Student> sd = new ArrayList<>();
 		Student result=null;
 		int id=0;
