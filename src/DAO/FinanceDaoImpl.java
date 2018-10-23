@@ -5,12 +5,53 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import DAO.util.JDBCUtil;
+import bean.Course;
 import bean.Finance;
 
 public class FinanceDaoImpl {
-
+	List <Finance> findAllFinance() {
+		List<Finance> f=new ArrayList<>();
+		Finance result=null;
+		int theId = 0;
+		String theAim = null;
+		int theTeacherId = 0;
+		String theOutTime = null;
+		String theOutNum = null;
+		// 创建数据库的连接
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet searchResult = null;
+		try {
+			conn = JDBCUtil.getConn();
+			conn.createStatement();
+			String sql = "select * from Finance";
+			searchResult = stmt.executeQuery(sql);
+			while (searchResult.next()) {
+				// TODO : 需要由后台替换属性名
+				theId = searchResult.getInt("put_id");
+				theAim = searchResult.getString("put_aim");
+				theTeacherId = searchResult.getInt("teacher_id");
+				theOutTime = searchResult.getString("out_time");
+				theOutNum = searchResult.getString("out_num");
+				result = new Finance();
+				result.setId(theId);
+				result.setAim(theAim);
+				result.setTeacherId(theTeacherId);
+				result.setOutTime(theOutTime);
+				result.setOutNum(theOutNum);
+				f.add(result);
+			}
+		}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				JDBCUtil.release(conn, stmt, searchResult);
+			}
+		return f;
+	}
 	/** 根据ID从数据库查询财务记录，并将财务记录保存为Finance对象返回
 	 * 
 	 * @param Id 需要查询的ID

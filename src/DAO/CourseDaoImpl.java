@@ -14,6 +14,52 @@ import bean.Student;
 import bean.Teacher;
 
 public class CourseDaoImpl {
+	/**
+	 * 得到所有course数据
+	 * @return	
+	 */
+	/*List <Course> findAllCourse() {
+		List<Course> c=new ArrayList<>();
+		Course result=null;
+		int id=0;
+		String name=null;
+		int teacher_id=0;
+		String course_type=null;
+		int course_fee=0;
+		String course_memo=null;
+		//连接数据库
+		Connection conn=null;
+		Statement st=null;
+		ResultSet rs=null;
+		//查询
+		try {
+		conn = JDBCUtil.getConn();
+		conn.createStatement();
+		String sql="select * from course";
+		rs=st.executeQuery(sql);
+		while(rs.next()) {
+				id=rs.getInt("course_id");
+				name=rs.getString("course_name");
+				teacher_id=rs.getInt("teacher_id");
+				course_type=rs.getString("course_type");
+				course_fee=rs.getInt("course_fee");
+				course_memo=rs.getString("course_memo");
+				result.setId(id);
+				result.setName(name);
+				result.setTeacherId(teacher_id);
+				result.setCourseType(course_type);
+				result.setCourseFee(course_fee);
+				result.setMemo(course_memo);
+				c.add(result);
+				}
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		JDBCUtil.release(conn, st, rs);
+	}
+	return c;
+}*/
 	public static Course findById(int Id) {
 		Course result=null;
 		int id=0;
