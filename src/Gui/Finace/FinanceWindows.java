@@ -3,28 +3,28 @@ package Gui.Finace;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
-//这是jfre图表的包
+//杩欐槸jfre鍥捐〃鐨勫寘
 import org.jfree.chart.*;
-//这是jfree设置用来设置图表的
+//杩欐槸jfree璁剧疆鐢ㄦ潵璁剧疆鍥捐〃鐨�
 import org.jfree.data.category.*;
-//这是jfree用来设置数据对象的
+//杩欐槸jfree鐢ㄦ潵璁剧疆鏁版嵁瀵硅薄鐨�
 import org.jfree.data.general.*;
 import org.jfree.chart.plot.*;
 
 public class FinanceWindows extends JPanel {
-	// 这是演示用的数据
-	String[] ListTitle = { "支出记录ID", "支出时间", "支出金额", "支出目的","老师ID" };
+	// 杩欐槸婕旂ず鐢ㄧ殑鏁版嵁
+	String[] ListTitle = { "鏀嚭璁板綍ID", "鏀嚭鏃堕棿", "鏀嚭閲戦", "鏀嚭鐩殑","鑰佸笀ID" };
 	String[][] Datas = {
-			{ "123456789", "2018.11.26", "100,000.00", "更换桌椅" ,"520520"},
-			{ "123475725", "2018.9.13", "10,000.00", "更换老师" ,"520520"}
+			{ "123456789", "2018.11.26", "100,000.00", "鏇存崲妗屾" ,"520520"},
+			{ "123475725", "2018.9.13", "10,000.00", "鏇存崲鑰佸笀" ,"520520"}
 			};
-	String[] rowKeys = { "A平台" };
+	String[] rowKeys = { "A骞冲彴" };
 	String[] colKeys = { "1st", "2nd", "3th", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
 			"11th", "12th"};
 	double[][] data = {
 			{ 4, 3, 1, 1, 1, 1, 2, 2, 2, 1, 8, 2, }
 	};
-	//这是窗口的一些属性
+	//杩欐槸绐楀彛鐨勪竴浜涘睘鎬�
 	ChartPanel FinanceChart;
 	JTable RecordTable;
 
@@ -34,7 +34,7 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public void setComponent() {
-		//初始化组件
+		//鍒濆鍖栫粍浠�
 		JPanel UpArea = new JPanel();
 		JPanel UpLeftArea = new JPanel();
 		JPanel UpRightArea = new JPanel();
@@ -43,7 +43,7 @@ public class FinanceWindows extends JPanel {
 		UpRightArea.setLayout(new GridLayout(2,1));
 		componentInitialize();
 		
-		//添加组件进窗口
+		//娣诲姞缁勪欢杩涚獥鍙�
 		UpLeftArea.setPreferredSize(new Dimension(700,450));
 		UpLeftArea.add(FinanceChart);
 		UpRightArea.add(new JLabel("总收入：305,000"),BorderLayout.NORTH);
@@ -61,9 +61,9 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public void initializeChart() {
-		// 步骤1：创建CategoryDataset对象（准备数据）
+		// 姝ラ1锛氬垱寤篊ategoryDataset瀵硅薄锛堝噯澶囨暟鎹級
 		CategoryDataset dataset = createDataset();
-		// 步骤2：根据Dataset 生成JFreeChart对象，以及做相应的设置
+		// 姝ラ2锛氭牴鎹瓺ataset 鐢熸垚JFreeChart瀵硅薄锛屼互鍙婂仛鐩稿簲鐨勮缃�
 		FinanceChart = new ChartPanel(createChart(dataset));
 	}
 
@@ -72,26 +72,27 @@ public class FinanceWindows extends JPanel {
 	}
 
 	public JFreeChart createChart(CategoryDataset categoryDataset) {
-		JFreeChart jfreechart = ChartFactory.createLineChart("收入统计图", // 标题
-				"年分", // categoryAxisLabel （category轴，横轴，X轴标签）
-				"数量", // valueAxisLabel（value轴，纵轴，Y轴的标签）
+		JFreeChart jfreechart = ChartFactory.createLineChart("鏀跺叆缁熻鍥�", // 鏍囬
+				"骞村垎", // categoryAxisLabel 锛坈ategory杞达紝妯酱锛孹杞存爣绛撅級
+				"鏁伴噺", // valueAxisLabel锛坴alue杞达紝绾佃酱锛孻杞寸殑鏍囩锛�
 				categoryDataset, // Datatest
 				PlotOrientation.VERTICAL, true, // legend
 				false, // tooltips
 				false); // URLs
 		
-		//设置图例类别字体,解决汉字的显示问题
+		//璁剧疆鍥句緥绫诲埆瀛椾綋,瑙ｅ喅姹夊瓧鐨勬樉绀洪棶棰�
 		CategoryPlot plot = jfreechart.getCategoryPlot();
-		plot.getRangeAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//纵坐标汉字
-		plot.getDomainAxis().setLabelFont(new  Font("宋体", Font.PLAIN, 12));//横坐标汉字
-		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//设置标题
+		plot.getRangeAxis().setLabelFont(new  Font("瀹嬩綋", Font.PLAIN, 12));//绾靛潗鏍囨眽瀛�
+		plot.getDomainAxis().setLabelFont(new  Font("瀹嬩綋", Font.PLAIN, 12));//妯潗鏍囨眽瀛�
+		jfreechart.getTitle().setFont(new Font("",Font.BOLD, 15));//璁剧疆鏍囬
 
 		jfreechart.getLegend().setItemFont(new Font("" ,Font.BOLD, 15));
 		return jfreechart;
 	}
-	/*
-	 * @初始化表格
 
+	public void initializeTable() {
+		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
+		RecordTable = new JTable(Datas, ListTitle);
 	}
 //	public static void main(String[] args) {
 //		JFrame frame = new JFrame();
