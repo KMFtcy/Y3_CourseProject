@@ -54,7 +54,7 @@ public class CourseDaoImpl {
 		}
 		return result;
 	}
-	List <Course> findByName(String Name){
+	public static List <Course> findByName(String Name){
 		List<Course> c = new ArrayList<>();
 		Course result=null;
 		int id=0;
@@ -102,7 +102,7 @@ public class CourseDaoImpl {
 	 * @param Date是当天日期
 	 * @return course是返回的实体类，里面的Name对象有内容
 	 */
-	List <Course> getSchedule(String Date){
+	public static List <Course> getSchedule(String Date){
 		List<Course> c = new ArrayList<>();
 		Course result=null;
 		int id=0;
@@ -138,7 +138,7 @@ public class CourseDaoImpl {
 		return c;
 	}
 	
-	List<Student> getNotSignIn(String Date,Course course){
+	public static List<Student> getNotSignIn(String Date,Course course){
 		List<Student> c = new ArrayList<>();
 		int id=0;
 		int course_id=0;
