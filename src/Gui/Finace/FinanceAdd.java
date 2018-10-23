@@ -1,7 +1,13 @@
 package Gui.Finace;
 
 import javax.swing.*;
+
+import DAO.FinanceDaoImpl;
+import bean.Finance;
+
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FinanceAdd extends JPanel {
     private JTextField outId; //支出记录ID
@@ -58,6 +64,30 @@ public class FinanceAdd extends JPanel {
         outPP.setBounds(200,220,450,200);
         add(confirm);
 
+        initializeButton();
+    }
+    
+    public void initializeButton() {
+    	confirm.addMouseListener(new MouseAdapter() {
+    		public void mouseClicked(MouseEvent e) {
+    			addFinance();
+    		}
+		});
+    }
+    
+    /**
+     * 将支出记录添加到数据库
+     */
+    public void addFinance() {
+    	//获取数据，生成Finance对象
+    	Finance financeRecord = new Finance();
+    	financeRecord.setId(Integer.parseInt(outId.getText()));
+    	financeRecord.setOutTime(outTime.getText());
+    	financeRecord.setOutNum(outMount.getText());
+    	financeRecord.setTeacherId(Integer.parseInt(TID.getText()));
+    	financeRecord.setAim(outPP.getText());
+    	//添加进数据库
+    	FinanceDaoImpl.insertFinance(financeRecord);
     }
    /* public static void main(String args[]){
         FinanceAdd financeAdd = new FinanceAdd();

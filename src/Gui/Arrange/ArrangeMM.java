@@ -2,8 +2,10 @@ package Gui.Arrange;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import DAO.*;
 
 public class ArrangeMM extends JPanel {
 	// ÑÝÊ¾Êý¾Ý
@@ -19,6 +21,9 @@ public class ArrangeMM extends JPanel {
 	JTextField SearchCourse;
 	JTextField SearchTeacher;
 	JTextField SearchStudent;
+	JButton SearchCourseButton;
+	JButton SearchTeacherButton;
+	JButton SearchStudentButton;
 	JButton Comfirm;
 
 	public ArrangeMM() {
@@ -38,18 +43,30 @@ public class ArrangeMM extends JPanel {
 		CourseListPane.setBounds(0, 0, 200, 100);
 		// ½«ÈÝÆ÷×éºÏ
 		JPanel LeftArea = new JPanel();
+		JPanel LeftUpArea = new JPanel();//ËÑË÷µÄ×ÓÈÝÆ÷
 		JPanel CenterArea = new JPanel();
+		JPanel CenterUpArea = new JPanel();//ËÑË÷µÄ×ÓÈÝÆ÷
 		JPanel RightArea = new JPanel();
-		LeftArea.setLayout(new GridLayout(2, 1));
-		CenterArea.setLayout(new GridLayout(2, 1));
-		RightArea.setLayout(new GridLayout(2, 1));
-
-		LeftArea.add(SearchCourse);
-		LeftArea.add(CourseListPane);
-		CenterArea.add(SearchTeacher);
-		CenterArea.add(TeacherListPane);
-		RightArea.add(SearchStudent);
-		RightArea.add(StudentListPane);
+		JPanel RightUpArea = new JPanel();//ËÑË÷µÄ×ÓÈÝÆ÷
+		LeftArea.setLayout(new BorderLayout());
+		LeftUpArea.setLayout(new BorderLayout());
+		CenterArea.setLayout(new BorderLayout());
+		CenterUpArea.setLayout(new BorderLayout());
+		RightArea.setLayout(new BorderLayout());
+		RightUpArea.setLayout(new BorderLayout());
+		
+		LeftUpArea.add(SearchCourse,BorderLayout.CENTER);
+		LeftUpArea.add(SearchCourseButton,BorderLayout.EAST);
+		LeftArea.add(LeftUpArea,BorderLayout.NORTH);
+		LeftArea.add(CourseListPane,BorderLayout.CENTER);
+		CenterUpArea.add(SearchTeacher,BorderLayout.CENTER);
+		CenterUpArea.add(SearchTeacherButton,BorderLayout.EAST);
+		CenterArea.add(CenterUpArea,BorderLayout.NORTH);
+		CenterArea.add(TeacherListPane,BorderLayout.CENTER);
+		RightUpArea.add(SearchStudent,BorderLayout.CENTER);
+		RightUpArea.add(SearchStudentButton,BorderLayout.EAST);
+		RightArea.add(RightUpArea,BorderLayout.NORTH);
+		RightArea.add(StudentListPane,BorderLayout.CENTER);
 
 		this.add(LeftArea, BorderLayout.WEST);
 		this.add(CenterArea, BorderLayout.CENTER);
@@ -63,7 +80,7 @@ public class ArrangeMM extends JPanel {
 		CourseList = new JList(Course);
 		CourseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TeacherList = new JList(Teacher);
-		TeacherList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		TeacherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		StudentList = new JList(Student);
 		StudentList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -209,6 +226,39 @@ public class ArrangeMM extends JPanel {
 				System.out.println("Ìí¼Ó¿Î³Ì" + data);
 			}
 		});
+		SearchCourseButton = new JButton("ËÑË÷");
+		SearchTeacherButton = new JButton("ËÑË÷");
+		SearchStudentButton = new JButton("ËÑË÷");
+		
+		SearchCourseButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				searchCourse(SearchCourse.getText());
+			}
+		});
+		SearchTeacherButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				searchTeacher(SearchTeacher.getText());
+			}
+		});
+		SearchStudentButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				searchStudent(SearchStudent.getText());
+			}
+		});
 	}
 
+	public void searchCourse(String Name) {
+//		CourseDaoImpl.
+		System.out.println(Name);
+	}
+
+	public void searchTeacher(String Name) {
+//		TeacherDaoImpl.
+		System.out.println(Name);
+	}
+
+	public void searchStudent(String Name) {
+//		StudentDaoImpl.f
+		System.out.println(Name);
+	}
 }
