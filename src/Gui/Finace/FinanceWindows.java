@@ -19,8 +19,8 @@ public class FinanceWindows extends JPanel {
 			{ "123475725", "2018.9.13", "10,000.00", "更换老师" ,"520520"}
 			};
 	String[] rowKeys = { "A平台" };
-	String[] colKeys = { "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月",
-			"11月", "12月"};
+	String[] colKeys = { "1st", "2nd", "3th", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
+			"11th", "12th"};
 	double[][] data = {
 			{ 4, 3, 1, 1, 1, 1, 2, 2, 2, 1, 8, 2, }
 	};
@@ -44,7 +44,7 @@ public class FinanceWindows extends JPanel {
 		componentInitialize();
 		
 		//添加组件进窗口
-		UpLeftArea.setSize(200, 200);
+		UpLeftArea.setPreferredSize(new Dimension(700,450));
 		UpLeftArea.add(FinanceChart);
 		UpRightArea.add(new JLabel("总收入：305,000"),BorderLayout.NORTH);
 		UpRightArea.add(new JLabel("总支出：237,000"),BorderLayout.SOUTH);
@@ -96,7 +96,6 @@ public class FinanceWindows extends JPanel {
 		DefaultTableModel model = new DefaultTableModel(Datas, ListTitle);
 		RecordTable = new JTable(Datas, ListTitle);
 	}
-//测试用
 //	public static void main(String[] args) {
 //		JFrame frame = new JFrame();
 //		
