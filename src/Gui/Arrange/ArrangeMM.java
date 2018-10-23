@@ -5,7 +5,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import DAO.*;
+import bean.SignRecord;
 
 public class ArrangeMM extends JPanel {
 	// 演示数据
@@ -219,11 +223,32 @@ public class ArrangeMM extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				ArrayList selectedStudentList;
+				selectedStudentList = (ArrayList) StudentList.getSelectedValuesList();
 				String data = "课程：" + (String)CourseList.getSelectedValue() +
-						 "教师：" + (String)TeacherList.getSelectedValue() +
-						 "学生：" + (String)StudentList.getSelectedValue();
+						 "教师：" + (String)TeacherList.getSelectedValue() 
+						 + "学生：";
+				for(Object i: selectedStudentList) {
+					data += (String)i+" ";
+				}
 				System.out.println("添加课程" + data);
+				//课程名和老师名只用获取一次
+				String courseName = (String)CourseList.getSelectedValue();
+				String teacherName = (String)TeacherList.getSelectedValue();
+				bean.Course selectedCourse = CourseDaoImpl.findByName(courseName).get(0);
+				bean.Teacher theTeacher = TeacherDaoImpl.findByName(teacherName).get(0);
+				//学生名要一一获取添加进数据库
+				for(Object i:selectedStudentList) {
+					bean.Student student = StudentDaoImpl.findByName((String)i).get(0);
+					SignRecord record = new SignRecord();
+					record.setTeacher_id(theTeacher.getId());
+					record.setCourse_id(selectedCourse.getId());
+					record.setStudent_id(student.getId());
+					//获取当前时间
+					Calendar c = Calendar.getInstance();
+					record.setSchooltime(c.get(Calendar.YEAR) + "-" 
+						+ c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH));
+				}
 			}
 		});
 		SearchCourseButton = new JButton("搜索");
