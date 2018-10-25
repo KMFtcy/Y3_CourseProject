@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
@@ -85,6 +86,12 @@ public class ArrangeMM extends JPanel {
 		initializeSearchTextField();
 		initializeButton();
 		ArrayList<bean.Course> allCourseList= (ArrayList<bean.Course>) DAO.SignOnDaoImpl.getCourseAll();
+		Course = new Vector<String>();
+		Teacher = new Vector<String>();
+		Student = new Vector<String>();
+		for(bean.Course temp:allCourseList) {
+			System.out.println(temp.getName());
+		}
 		for(bean.Course i:allCourseList) {
 			Course.add(i.getName());
 		}
@@ -254,7 +261,13 @@ public class ArrangeMM extends JPanel {
 				bean.Teacher theTeacher = TeacherDaoImpl.findByName(teacherName).get(0);
 				//学生名要一一获取添加进数据库
 				for(Object i:selectedStudentList) {
-					bean.Student student = StudentDaoImpl.findByName((String)i).get(0);
+					bean.Student student = null;
+					try {
+						student = StudentDaoImpl.findByName((String)i).get(0);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					SignRecord record = new SignRecord();
 					record.setTeacher_id(theTeacher.getId());
 					record.setCourse_id(selectedCourse.getId());

@@ -27,7 +27,7 @@ public class FinanceDaoImpl {
 		ResultSet searchResult = null;
 		try {
 			conn = JDBCUtil.getConn();
-			conn.createStatement();
+			stmt=conn.createStatement();
 			String sql = "select * from Finance";
 			searchResult = stmt.executeQuery(sql);
 			while (searchResult.next()) {

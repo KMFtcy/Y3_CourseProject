@@ -40,7 +40,7 @@ public class TeacherDaoImpl{
 		//≤È—Ø
 		try {
 		conn = JDBCUtil.getConn();
-		conn.createStatement();
+		st=conn.createStatement();
 		String sql="select * from teacher";
 		rs=st.executeQuery(sql);
 		while(rs.next()) {
@@ -54,6 +54,7 @@ public class TeacherDaoImpl{
 				cer_num=rs.getString("cer_num");
 				address=rs.getString("address");
 				note=rs.getString("note");
+				result = new Teacher();
 				result.setId(id);
 				result.setName(name);
 				result.setSex(sex);
@@ -99,7 +100,7 @@ public class TeacherDaoImpl{
 		String sql="select * from teacher where teacher_id=?";
 		st = conn.prepareStatement(sql);
 		st.setLong(1, Id);
-		rs=st.executeQuery(sql);
+		rs=st.executeQuery();
 		while(rs.next()) {
 				id=rs.getInt("teacher_id");
 				name=rs.getString("teacher_name");
@@ -163,6 +164,7 @@ public class TeacherDaoImpl{
 					cer_num=rs.getString("cer_num");
 					address=rs.getString("address");
 					note=rs.getString("note");
+					result = new Teacher();
 					result.setId(id);
 					result.setName(name);
 					result.setSex(sex);

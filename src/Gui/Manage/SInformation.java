@@ -8,7 +8,11 @@ import javafx.beans.binding.ObjectBinding;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 import javax.swing.*;
@@ -31,6 +35,9 @@ public class SInformation extends JPanel {
     private JCheckBox jcka;     //全选复选框
     private JPanel jpn;         //上方搜索pane
     private JPanel jpso;         //下方按钮
+
+    private List<Student> studentArrayList;
+
     public SInformation(){
         intGUI();
     }
@@ -50,12 +57,75 @@ public class SInformation extends JPanel {
         jlt = new JLabel("学生类型");
         jls = new JLabel("入学时间");
         jcka = new JCheckBox("全选");
+
+        //studentArrayList = new ArrayList<>();
+        studentArrayList = StudentDaoImpl.findAllStudent();
+
+//        JButton JAddImage ;
+//		UpRightArea.add(JAddImage = new JButton("插入照片"));
+//		JAddImage.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				JFileChooser fileChooser = new JFileChooser();
+//				fileChooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
+//				fileChooser.showOpenDialog(null);
+//				File file = fileChooser.getSelectedFile();
+//			}
+//		});
+
+
         Vector<JPanel> jPanelVector;
         jPanelVector = new Vector<>();
         //重要的jpanel设置  //此处i应被替换为数据库中读取的学生的列表的长度
-        for(int i = 0;i < 40;i++){
-            String name = "sdsfdsfsa";   //此处name应为学生类中读取的学生姓名
-            jPanelVector.add(tool.JPanel("sdsfdsaf"));
+        for(int i = 0;i < studentArrayList.size();i++){
+//            String name = "sdsfdsfsa";   //此处name应为学生类中读取的学生姓名
+//            jPanelVector.add(tool.JPanel("sdsfdsaf"));
+            Student student = studentArrayList.get(i);
+            JPanel jpanel = tool.JPanel(student);
+            jpanel.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int clickTime = e.getClickCount();
+		            if(clickTime == 2) {
+		                DetailS inf = new DetailS(student.getName());
+		                inf.setVisible(true);
+		                inf.setLocationRelativeTo(null);
+		            }
+					
+				}
+			});
+            jPanelVector.add(jpanel);
+
+
+
+
+
+
         }
         //上方pane
         jpn = new JPanel();
@@ -106,8 +176,8 @@ public class SInformation extends JPanel {
                     public void actionPerformed(ActionEvent e1) {
                         //DAO预留位置
                         ToolS ts = new ToolS();
-                        //设置标签信息
-                        jPanelVector.add(ts.JPanel("sssss"));
+
+                        //jPanelVector.add(ts.JPanel());
                         //数据库
                         Student student = new Student();
                         student.setId(Integer.parseInt(DS.ID.getText()));
@@ -124,26 +194,17 @@ public class SInformation extends JPanel {
                         student.setGrade(DS.StudentType.getText());
                         student.setNote(DS.Memo.getText());
                         StudentDaoImpl.addStudent(student);
+                        //设置标签信息
+                        jPanelVector.add(ts.JPanel(student));
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-                        ts.jln.setText(DS.Name.getText());
-                        ts.jlno.setText(DS.ID.getText());
-                        ts.jlc.setText(DS.StudentType.getText());
-                        ts.jlt.setText(DS.RegistTime.getText());
+//                        ts.jln.setText(DS.Name.getText());
+//                        ts.jlno.setText(DS.ID.getText());
+//                        ts.jlc.setText(DS.StudentType.getText());
+//                        ts.jlt.setText(DS.RegistTime.getText());
 
                         jpmm.add(jPanelVector.get(jPanelVector.size()-1));
                         jpmm.revalidate();
@@ -157,12 +218,14 @@ public class SInformation extends JPanel {
         jcka.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < jPanelVector.size(); i++) {
+                for (int i = 0; i < jpmm.getComponentCount(); i++) {
                     if (jcka.isSelected()) {
-                        Object obj = jPanelVector.get(i).getComponent(0);
+                        Object object = jpmm.getComponent(i);
+                        Object obj = ((JPanel) object).getComponent(0);
                         ((JCheckBox) obj).setSelected(true);
                     } else {
-                        Object obj = jPanelVector.get(i).getComponent(0);
+                        Object object = jpmm.getComponent(i);
+                        Object obj = ((JPanel) object).getComponent(0);
                         ((JCheckBox) obj).setSelected(false);
                     }
                 }
@@ -185,16 +248,27 @@ public class SInformation extends JPanel {
                         }
                         if (flag) {  //若被选中则删除
                             jpmm.remove(jPanelVector.get(i));
-                            jPanelVector.remove(i);  //移除相应的jpanel
-                            count--;                 //需要添加删除数据库申请
+                            //首先删除数据库的相关信息
+                            Object obj = jPanelVector.get(i).getComponent(2);
+                            String temp = ((JLabel)obj).getText();
+                            int n = Integer.parseInt(temp);
+                            System.out.println(n);
+                            StudentDaoImpl.deleteById(n);
+                            //然后再JPanel容器中移除相应的JPanel
+                            jPanelVector.remove(i);
+                            count--;
                             jcka.setSelected(false);
                         }
                     }
                     jpmm.repaint();
                     jpmm.revalidate();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }else {
                     jpmm.repaint();
                     jpmm.revalidate();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }
             }
         });
@@ -207,7 +281,7 @@ public class SInformation extends JPanel {
                 if(!name.equals("")){
                     Vector <Integer>temp = new Vector();
                     for(int i = jPanelVector.size()-1; i >=0; i--){
-                        Object object = jPanelVector.get(1).getComponent(1);  //获取姓名与搜索文本进行对比
+                        Object object = jPanelVector.get(i).getComponent(1);  //获取姓名与搜索文本进行对比
                         if(name.equals(((JLabel) object).getText())){   //保存符合要求的jpanel序号
                             temp.add(i);
                         }
@@ -218,6 +292,8 @@ public class SInformation extends JPanel {
                     }
                     jpmm.validate();
                     jpmm.repaint();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }else {
                     JOptionPane.showMessageDialog(App.home,"请输入学生姓名！","警告",JOptionPane.WARNING_MESSAGE);
                     jtfs.requestFocus();
@@ -233,6 +309,8 @@ public class SInformation extends JPanel {
                 }
                 jpmm.validate();
                 jpmm.repaint();
+                jScrollPane.validate();
+                jScrollPane.repaint();
             }
         });
     }

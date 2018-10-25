@@ -18,15 +18,13 @@ public class CourseDaoImpl {
 	 * 得到所有course数据
 	 * @return	
 	 */
-	/*List <Course> findAllCourse() {
-		List<Course> c=new ArrayList<>();
+	/*public static List <ScheduleRecord> findAllTodayScheduleContact() {
+		List<ScheduleRecord> c=new ArrayList<>();
 		Course result=null;
 		int id=0;
-		String name=null;
-		int teacher_id=0;
-		String course_type=null;
-		int course_fee=0;
-		String course_memo=null;
+		String COURSES_GROUP=null;
+		int DATETIME=0;
+		int STUDENT_ID=0;
 		//连接数据库
 		Connection conn=null;
 		Statement st=null;
@@ -35,21 +33,18 @@ public class CourseDaoImpl {
 		try {
 		conn = JDBCUtil.getConn();
 		conn.createStatement();
-		String sql="select * from course";
+		String sql="select * from TodaySchedule_Contact";
 		rs=st.executeQuery(sql);
 		while(rs.next()) {
-				id=rs.getInt("course_id");
-				name=rs.getString("course_name");
-				teacher_id=rs.getInt("teacher_id");
-				course_type=rs.getString("course_type");
-				course_fee=rs.getInt("course_fee");
-				course_memo=rs.getString("course_memo");
+				id=rs.getInt("SCHEDULE_ID");
+				COURSES_GROUP=rs.getString("COURSES_GROUP");
+				DATETIME=rs.getInt("DATETIME");
+				STUDENT_ID=rs.getInt("STUDENT_ID");
+				result=new 
 				result.setId(id);
-				result.setName(name);
-				result.setTeacherId(teacher_id);
-				result.setCourseType(course_type);
-				result.setCourseFee(course_fee);
-				result.setMemo(course_memo);
+				result.setName(COURSES_GROUP);
+				result.setTeacherId(DATETIME);
+				result.setCourseType(STUDENT_ID);
 				c.add(result);
 				}
 		
@@ -126,6 +121,7 @@ public class CourseDaoImpl {
 					course_type=rs.getString("course_type");
 					course_fee=rs.getInt("course_fee");
 					course_memo=rs.getString("course_memo");
+					result = new Course();
 					result.setId(id);
 					result.setName(name);
 					result.setTeacherId(teacher_id);
@@ -188,7 +184,7 @@ public class CourseDaoImpl {
 		List<Student> c = new ArrayList<>();
 		int id=0;
 		int course_id=0;
-		Student result=null;
+		//Student result=null;
 		Student result1=null;
 		Connection conn =null;
 		PreparedStatement st=null;
@@ -200,23 +196,24 @@ public class CourseDaoImpl {
 			st.setLong(1, course_id);
 			rs=st.executeQuery();
 			while(rs.next()) {
-			id=rs.getInt("student_id");
-			result1.setId(id);
-			c.add(result);
+				id=rs.getInt("student_id");
+				result1=new Student();
+				result1.setId(id);
+				c.add(result1);
 			}
-			sql="select * from signin where schooltime=?";
-			st = conn.prepareStatement(sql);
-			st.setString(1, Date);
-			rs=st.executeQuery();
-			while(rs.next()) {
-			id=rs.getInt("student_id");
-			course_id=rs.getInt("course_id");
-			for(int j=0;j<c.size();j++) {
-				if(c.get(j).getId()==id) {
-					c.remove(id);
-					}
-			}
-			}	
+//			sql="select * from signin where schooltime=?";
+//			st = conn.prepareStatement(sql);
+//			st.setString(1, Date);
+//			rs=st.executeQuery();
+//			while(rs.next()) {
+//				id=rs.getInt("student_id");
+//				course_id=rs.getInt("course_id");
+//				for(int j=0;j<c.size();j++) {
+//					if(c.get(j).getId()==id) {
+//						c.remove(id);
+//					}
+//				}
+//			}	
 	}catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

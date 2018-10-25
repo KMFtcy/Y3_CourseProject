@@ -1,10 +1,17 @@
 package Gui.Manage;
 
+import bean.Student;
+
 import java.awt.*;
 
+import DAO.StudentDaoImpl;
+
 public class DetailS extends AddS {
-    public DetailS(){
-        super();
+	public String names;
+    public DetailS(String name){
+    	super();
+    	names = name;
+    	CC();
     }
 
     @Override
@@ -12,19 +19,24 @@ public class DetailS extends AddS {
         super.setComponent();
     }
 
-    public void componentInitialize(){
-        super.componentInitialize();
-        ID.setText("aa");
-        Name.setText("tang");
-        Gender.setText("b");
-        StudentType.setText("121");
-        RegistTime.setText("1999.11.11");
-        PhoneNumber.setText("123456789");
-        Birthday.setText("1971.11.11");
-        InChargeTeacher.setText("zhang");
-        CardID.setText("身份证");
-        CardID.setText("370911199911110258");
-        Address.setText("吉林省长春市朝阳区");
-        Email.setText("1111111@qq.com");
+    public void CC(){
+        try {
+        	Student students = StudentDaoImpl.findByName(names).get(0);
+            ID.setText(String.valueOf(students.getId()));
+            Name.setText(students.getName());
+            Gender.setText(students.getSex());
+            StudentType.setText(students.getGrade());
+            RegistTime.setText(students.getRegisteTime());
+            PhoneNumber.setText(students.getPhone());
+            Birthday.setText(students.getBirth());
+            InChargeTeacher.setText(students.getInChargeTeacher());
+            CardType.setText(students.getCerTypr());
+            CardID.setText(students.getCerCode());
+            Address.setText(students.getAddress());
+            Email.setText(students.getEmail());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
     }
 }

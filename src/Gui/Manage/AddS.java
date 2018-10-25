@@ -1,7 +1,12 @@
 package Gui.Manage;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * 添加学生窗口
@@ -25,6 +30,8 @@ public class AddS extends JFrame implements ActionListener{
 	JTextArea Memo;//备忘
 	JButton Comfirm;//确认按钮
 	JButton Cancel;//取消按钮
+	File file;//选择的照片
+	ImageIcon photo;//照片
 	
 	
 	public AddS(){
@@ -77,8 +84,34 @@ public class AddS extends JFrame implements ActionListener{
 		UpCenterArea.add(Address);
 		UpCenterArea.add(new JLabel("电子邮箱",JLabel.CENTER));
 		UpCenterArea.add(Email);
-		UpRightArea.add(new JLabel("照片",JLabel.CENTER));
-		UpRightArea.add(new JLabel("这是到时插入的照片",JLabel.CENTER));
+	//	UpRightArea.add(new JLabel("照片",JLabel.CENTER));
+	//	UpRightArea.add(new JLabel("这是到时插入的照片",JLabel.CENTER));
+		JButton JAddImage ;
+		UpRightArea.add(JAddImage = new JButton("插入照片"));
+		JAddImage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
+				fileChooser.showOpenDialog(null);
+				file = fileChooser.getSelectedFile();
+				try {
+					InputStream is = new FileInputStream(file);
+					BufferedImage bi = ImageIO.read(is);
+					photo = new ImageIcon((Image)bi);
+					JLabel jLabel = new JLabel(photo);
+					UpRightArea.removeAll();
+					UpRightArea.add(jLabel);
+					UpRightArea.revalidate();
+					UpRightArea.repaint();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				
+				
+			}
+		});
+		
 		UpButtomArea.add(new JLabel("备注"),BorderLayout.WEST);
 		UpButtomArea.add(Memo,BorderLayout.CENTER);
 		ButtomArea.add(Comfirm);

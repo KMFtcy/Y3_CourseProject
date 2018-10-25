@@ -73,16 +73,16 @@ public class Home extends JFrame{
         JMArr = new JMenuItem("排课管理");
         JMCheck = new JMenuItem("查看");
         //主页图片
-        image = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\40i58PIC4sf_1024.jpg");
+        image = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\library-1400312_1920.jpg");
         //设置menubar
         setJMenuBar(JMB);
 
         toolBar = new JToolBar();
         //创建图表对象
-        ImageIcon imageSmanage = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\14.png");
-        ImageIcon imageCmanage = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\12.png");
-        ImageIcon imageFinace = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\8.png");
-        ImageIcon imageSign = new ImageIcon("D:\\Github\\Y3_CourseProject\\src\\7.png");
+        ImageIcon imageSmanage = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\14.png");
+        ImageIcon imageCmanage = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\12.png");
+        ImageIcon imageFinace = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\8.png");
+        ImageIcon imageSign = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\7.png");
         //创建工具栏
         JButton btSmanage = new JButton("学生管理",imageSmanage);
         btSmanage.setToolTipText("管理学生信息");
@@ -162,7 +162,6 @@ public class Home extends JFrame{
         jPanel.add(ee = new TInformation(),"6");
         jPanel.add(g = new SignIn(),"7");
         jPanel.add(i = new ArrangeMM(),"8");
-        jPanel.add(h = new FinanceWindows(),"9");
         //关闭窗口事件
         addWindowListener(new WindowAdapter() {
             @Override
@@ -240,9 +239,13 @@ public class Home extends JFrame{
         Check.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                card.show(jPanel,"9");
-                h.validate();
-                h.repaint();
+                JFrame jFrame = new FinanceWindows();
+                jFrame.setVisible(true);
+                jFrame.setLocationRelativeTo(null);
+                jFrame.pack();
+//                card.show(jPanel,"9");
+//                h.validate();
+//                h.repaint();
             }
         });
 
@@ -265,9 +268,13 @@ public class Home extends JFrame{
         btFinace.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                card.show(jPanel,"9");
-                h.validate();
-                h.repaint();
+                JFrame jFrame = new FinanceWindows();
+                jFrame.setVisible(true);
+                jFrame.setLocationRelativeTo(null);
+                jFrame.pack();
+//                card.show(jPanel,"9");
+//                h.validate();
+//                h.repaint();
             }
         });
         btSign.addActionListener(new ActionListener() {

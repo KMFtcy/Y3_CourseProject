@@ -1,5 +1,9 @@
 package DAO;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,13 +26,14 @@ public class StudentDaoImpl{
 	 * 得到所有学生的数据
 	 * @return Student类型的所有学生数据的动态数组
 	 */
+	@Test
 	public static List <Student> findAllStudent() {
 		List<Student> sd=new ArrayList<>();
 		Student result=null;
 		int id=0;
 		String name=null;
 		String grade=null;
-		String password=null;
+		//String password=null;
 		String RegisteTime = null;
 		String phone=null;
 		String Birth = null;
@@ -39,23 +44,23 @@ public class StudentDaoImpl{
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		byte picture=(Byte) null;
+		//byte picture=(Byte) null;
 		//连接数据库
 		Connection conn =null;
 		Statement st=null;
 		ResultSet rs=null;
 		try {
 			conn = JDBCUtil.getConn();
-			conn.createStatement();
+			st=conn.createStatement();
 			String sql="select * from student";
 			rs=st.executeQuery(sql);
 			while(rs.next()) {
 				id=rs.getInt("student_id");
 				name=rs.getString("name");
 				grade=rs.getString("grade");
-				String time=rs.getString("time");
+				RegisteTime=rs.getString("time");
 				phone=rs.getString("phone");
-				String birth=rs.getString("birth");
+				Birth=rs.getString("birth");
 				sex=rs.getString("sex");
 				ad_teacher=rs.getString("ad_teacher");
 				email=rs.getString("email");
@@ -63,7 +68,7 @@ public class StudentDaoImpl{
 				cer_num=rs.getString("cer_num");
 				address=rs.getString("address");
 				note=rs.getString("note");
-				picture=rs.getByte("picture");
+				//picture=rs.getByte("picture");
 				result=new Student();
 				result.setId(id);
 				result.setName(name);
@@ -78,7 +83,7 @@ public class StudentDaoImpl{
 				result.setCerCode(cer_num);
 				result.setAddress(address);
 				result.setNote(note);
-				result.setPhoto(picture);
+			//	result.setPhoto(picture);
 				sd.add(result);
 			}
 			
@@ -93,7 +98,7 @@ public class StudentDaoImpl{
 	 * @param id传入学生id
 	 * @return
 	 */
-	@Test
+	
 	public static Student findById(int Id) {
 		Student result=null;
 		int id=0;
@@ -122,7 +127,7 @@ public class StudentDaoImpl{
 		String sql="select * from student where student_id=?";
 		st = conn.prepareStatement(sql);
 		st.setLong(1, Id);
-		rs=st.executeQuery(sql);
+		rs=st.executeQuery();
 		while(rs.next()) {
 			id=rs.getInt("student_id");
 			name=rs.getString("name");
@@ -154,7 +159,7 @@ public class StudentDaoImpl{
 		result.setCerCode(cer_num);
 		result.setAddress(address);
 		result.setNote(note);
-		result.setPhoto(picture);
+		//result.setPhoto(picture);
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
@@ -163,7 +168,9 @@ public class StudentDaoImpl{
 		return result;
 }
 
-	public static List <Student> findByName(String Name){
+
+	
+	public static List <Student> findByName(String Name)throws FileNotFoundException{
 		List<Student> sd = new ArrayList<>();
 		Student result=null;
 		int id=0;
@@ -180,7 +187,7 @@ public class StudentDaoImpl{
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		byte picture=(Byte) null;
+		//byte picture=(Byte) null;
 		//连接数据库
 		Connection conn =null;
 		PreparedStatement st=null;
@@ -205,7 +212,7 @@ public class StudentDaoImpl{
 				cer_num=rs.getString("cer_num");
 				address=rs.getString("address");
 				note=rs.getString("note");
-				picture=rs.getByte("picture");
+				//picture=rs.getByte("picture");
 				result=new Student();
 				result.setId(id);
 				result.setName(name);
@@ -220,7 +227,7 @@ public class StudentDaoImpl{
 				result.setCerCode(cer_num);
 				result.setAddress(address);
 				result.setNote(note);
-				result.setPhoto(picture);
+				//result.setPhoto(picture);
 				sd.add(result);
 			}
 			
@@ -235,8 +242,9 @@ public class StudentDaoImpl{
 	 * @param student传入所有信息
 	 * @return 返回true(添加成功)或false(添加失败)
 	 */
-	@Test
 	public static boolean addStudent(Student student) {
+		/*File file=new File("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\罗豪.jpg");
+		BufferedInputStream imageInput = new BufferedInputStream(new FileInputStream(file));*/
 		boolean flag = false;
 		Connection conn =null;
 		Statement st=null;
@@ -247,7 +255,7 @@ public class StudentDaoImpl{
 			+student.getGrade()+"',"+student.getRegisteTime()+",'"+student.getPhone()+"',"
 			+student.getBirth()+",'"+student.getSex()+"','"+student.getInChargeTeacher()+"','"
 			+student.getEmail()+"','"+student.getCerTypr()+"','"+student.getCerCode()+"','"+student.getAddress()+"','"
-			+student.getNote()+"')";
+			+student.getNote()+"')";//,"+student.getPhoto()+"
 			//photo还没有存取方法
 			st.executeQuery(sql);
 			flag=true;
@@ -275,6 +283,7 @@ public class StudentDaoImpl{
 			String sql="delete from student where student_id=?";//还没添加定位的字段
 			ps=conn.prepareStatement(sql);
 			ps.setLong(1, id);
+			ps.executeUpdate();
 			flag=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

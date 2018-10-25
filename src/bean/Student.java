@@ -1,6 +1,8 @@
 package bean;
 
+import java.awt.Image;
 import java.util.Arrays;
+import java.sql.*;
 
 public class Student {
 	private int Id;
@@ -16,8 +18,26 @@ public class Student {
 	private String cerCode;
 	private String Address;
 	private String Note;
-	private byte Photo;
+	private Blob Photo = null;
+	//private Image picture = null;
 
+	public Student(){}
+	public Student(Student theStudent){
+		this.Id = theStudent.getId();
+		this.Name = theStudent.getName();
+		this.Grade = theStudent.getGrade();
+		this.RegisteTime = theStudent.getRegisteTime();
+		this.Phone = theStudent.getPhone();
+		this.Birth = theStudent.getBirth();
+		this.Sex = theStudent.getSex();
+		this.InChargeTeacher = theStudent.getInChargeTeacher();
+		this.Email = theStudent.getEmail();
+		this.cerTypr = theStudent.getCerTypr();
+		this.cerCode = theStudent.getCerCode();
+		this.Address = theStudent.getAddress();
+		this.Note = theStudent.getNote();
+		
+	}
 	public int getId() {
 		return Id;
 	}
@@ -122,14 +142,12 @@ public class Student {
 		Note = note;
 	}
 
-	public byte getPhoto() {
+	public Blob getPhoto() {
 		return Photo;
 	}
-
-	public void setPhoto(byte picture) {
-		Photo = picture;
+	public void setPhoto(Blob photo) {
+		Photo = photo;
 	}
-
 	@Override
 	public String toString() {
 		return "Student [Id=" + Id + ", Name=" + Name + ", Grade=" + Grade + ", RegisteTime=" + RegisteTime + ", Phone="

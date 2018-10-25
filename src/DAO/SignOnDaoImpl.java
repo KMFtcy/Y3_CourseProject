@@ -37,7 +37,7 @@ public class SignOnDaoImpl {
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		byte picture=(Byte) null;
+		//byte picture=(Byte) null;
 		//创建数据库连接
 		Connection conn=null;
 		PreparedStatement st=null;
@@ -80,7 +80,7 @@ public class SignOnDaoImpl {
 				cer_num=rs.getString("cer_num");
 				address=rs.getString("address");
 				note=rs.getString("note");
-				picture=rs.getByte("picture");
+				//picture=rs.getByte("picture");
 				result=new Student();
 				result.setId(id);
 				result.setName(name);
@@ -95,7 +95,7 @@ public class SignOnDaoImpl {
 				result.setCerCode(cer_num);
 				result.setAddress(address);
 				result.setNote(note);
-				result.setPhoto(picture);
+				//result.setPhoto(picture);
 				sd.add(result);
 			}
 			}
@@ -106,7 +106,7 @@ public class SignOnDaoImpl {
 		finally {
 			JDBCUtil.release(conn, st, rs);
 		}
-		return (List<Student>) result;
+		return (List<Student>) sd;
 }
 	/**
 	 * 得到所有course数据
@@ -137,6 +137,7 @@ public class SignOnDaoImpl {
 					course_type=rs.getString("course_type");
 					course_fee=rs.getInt("course_fee");
 					course_memo=rs.getString("course_memo");
+					result = new Course();
 					result.setId(id);
 					result.setName(name);
 					result.setTeacherId(teacher_id);
@@ -186,6 +187,7 @@ public class SignOnDaoImpl {
 				address=rs.getString("address");
 				note=rs.getString("note");
 			}
+		result = new Teacher();
 		result.setId(id);
 		result.setName(name);
 		result.setSex(sex);
