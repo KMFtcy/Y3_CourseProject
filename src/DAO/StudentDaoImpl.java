@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import org.junit.Test;
 
 import DAO.util.JDBCUtil;
@@ -606,7 +608,7 @@ public class StudentDaoImpl{
 			ps=conn.prepareStatement(sql);
 			BufferedInputStream imageInput = new BufferedInputStream(new FileInputStream(photo));
 			ps.setBinaryStream(1, imageInput , (int)photo.length());
-			ps.setLong(2, id);
+			ps.setInt(2, id);
 			ps.executeUpdate();
 			flag=true;
 		} catch (Exception e) {
