@@ -1,6 +1,7 @@
 package bean;
 
 import java.awt.Image;
+import java.io.File;
 import java.util.Arrays;
 import java.sql.*;
 
@@ -18,7 +19,7 @@ public class Student {
 	private String cerCode;
 	private String Address;
 	private String Note;
-	private Blob Photo = null;
+	private Image Photo = null;
 	//private Image picture = null;
 
 	public Student(){}
@@ -142,10 +143,10 @@ public class Student {
 		Note = note;
 	}
 
-	public Blob getPhoto() {
+	public Image getPhoto() {
 		return Photo;
 	}
-	public void setPhoto(Blob photo) {
+	public void setPhoto(Image photo) {
 		Photo = photo;
 	}
 	@Override
