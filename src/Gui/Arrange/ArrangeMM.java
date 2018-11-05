@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import DAO.*;
+import bean.ScheduleRecord;
 import bean.SignRecord;
 
 public class ArrangeMM extends JPanel {
@@ -268,14 +269,16 @@ public class ArrangeMM extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					SignRecord record = new SignRecord();
-					record.setTeacher_id(theTeacher.getId());
-					record.setCourse_id(selectedCourse.getId());
-					record.setStudent_id(student.getId());
+					ScheduleRecord record = new ScheduleRecord();
+					record.setId((int)(Math.random()*100));
+					record.setTeacherId(theTeacher.getId());
+					record.setCourseId(selectedCourse.getId());
+					record.setStudentId(student.getId());
 					//获取当前时间
 					Calendar c = Calendar.getInstance();
-					record.setSchooltime(c.get(Calendar.YEAR) + "-" 
+					record.setSchoolTime(c.get(Calendar.YEAR) + "-" 
 						+ c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH));
+					SignOnDaoImpl.addSchedule(record);
 				}
 			}
 		});

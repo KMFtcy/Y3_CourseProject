@@ -1,10 +1,14 @@
 package Gui.Manage;
 
+import DAO.StudentDaoImpl;
+import DAO.TeacherDaoImpl;
 import Gui.App;
+import bean.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 import java.util.Vector;
 
 public class TInformation extends JPanel {
@@ -22,6 +26,9 @@ public class TInformation extends JPanel {
     //private JPanel[] jPanels;   //学生标签
     private JPanel jpn;         //上方搜索pane
     private JPanel jpso;         //下方按钮
+
+    private List<Teacher> teacherList;
+
     public TInformation(){
         intGUI();
     }
@@ -39,13 +46,49 @@ public class TInformation extends JPanel {
         jpm = new JPanel();
         jln = new JLabel("姓名");
         jlno = new JLabel("编号");
-        jlt = new JLabel("教学科目");
+        jlt = new JLabel("教师性别");
         jls = new JLabel("加入时间");
         jcka = new JCheckBox("全选");
+
+        teacherList = TeacherDaoImpl.findAllCourse();
+
         Vector<JPanel> jPanelVector;
         jPanelVector = new Vector<>();
-        for(int i = 0;i < 40;i++){
-            jPanelVector.add(tool.JPanel());
+        for(int i = 0;i < teacherList.size(); i++){
+            Teacher teacher = teacherList.get(i);
+            JPanel jPanel = tool.JPanel(teacher);
+            jPanel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int clickTime = e.getClickCount();
+                    if(clickTime == 2) {
+                        DetailT inf = new DetailT(teacher.getName());
+                        inf.setVisible(true);
+                        inf.setLocationRelativeTo(null);
+                    }
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+            jPanelVector.add(jPanel);
         }
         //上方pane
         jpn = new JPanel();
@@ -97,13 +140,58 @@ public class TInformation extends JPanel {
                         //DAO预留位置
                         ToolT tt = new ToolT();
                         //设置标签信息
-                        jPanelVector.add(tt.JPanel());
-                        tt.jln.setText(DT.Name.getText());
-                        tt.jlno.setText(DT.ID.getText());
-                        tt.jlc.setText(DT.CourseType.getText());
-                        tt.jlt.setText(DT.RegistTime.getText());
+                        Teacher teacher = new Teacher();
+                        teacher.setName(DT.Name.getText());
+                        teacher.setTime(DT.RegistTime.getText());
+                        teacher.setSex(DT.Gender.getText());
+                        teacher.setPhone(DT.PhoneNumber.getText());
+                        teacher.setId(Integer.parseInt(DT.ID.getText()));
+                        teacher.setEmail(DT.Email.getText());
+                        teacher.setCerType(DT.CardType.getText());
+                        teacher.setCerNum(DT.CardID.getText());
+                        teacher.setAddress(DT.Address.getText());
+                        teacher.setNote(DT.Memo.getText());
+                        TeacherDaoImpl.addTeacher(teacher);
 
-                        jpmm.add(jPanelVector.get(jPanelVector.size()-1));
+//                        tt.jln.setText(DT.Name.getText());
+//                        tt.jlno.setText(DT.ID.getText());
+//                        tt.jlc.setText(DT.CourseType.getText());
+//                        tt.jlt.setText(DT.RegistTime.getText());
+
+                        JPanel jPanel = tt.JPanel(teacher);
+                        jPanel.addMouseListener(new MouseListener() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                int clickTime = e.getClickCount();
+                                if(clickTime == 2) {
+                                    DetailT inf = new DetailT(teacher.getName());
+                                    inf.setVisible(true);
+                                    inf.setLocationRelativeTo(null);
+                                }
+                            }
+
+                            @Override
+                            public void mousePressed(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseReleased(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseEntered(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseExited(MouseEvent e) {
+
+                            }
+                        });
+                        jPanelVector.add(jPanel);  //添加到jpanelvector
+                        jpmm.add(jPanelVector.get(jPanelVector.size()-1)); //显示jpanel
                         jpmm.revalidate();
                         DT.dispose();
                     }
@@ -114,14 +202,16 @@ public class TInformation extends JPanel {
         jcka.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < jPanelVector.size(); i++) {
+                for (int i = 0; i < jpmm.getComponentCount(); i++) {
                     if (jcka.isSelected()) {
-                        Object obj = jPanelVector.get(i).getComponent(0);
+                        Object object = jpmm.getComponent(i);
+                        Object obj = ((JPanel) object).getComponent(0);
                         ((JCheckBox) obj).setSelected(true);
 
                     } else {
 
-                        Object obj = jPanelVector.get(i).getComponent(0);
+                        Object object = jpmm.getComponent(i);
+                        Object obj = ((JPanel) object).getComponent(0);
                         ((JCheckBox) obj).setSelected(false);
                     }
                 }
@@ -137,12 +227,17 @@ public class TInformation extends JPanel {
                     int count = jPanelVector.size();
                     for (int i = count - 1; i >= 0; i--) {
                         {
-                            Object obj = jPanelVector.get(i).getComponent(0);
-                            if (obj instanceof JCheckBox) {
-                                flag = ((JCheckBox) obj).isSelected();
-                            }
+                        Object obj = jPanelVector.get(i).getComponent(0);
+                        if (obj instanceof JCheckBox) {
+                            flag = ((JCheckBox) obj).isSelected();
                         }
+                    }
                         if (flag) {
+                            Object object = jPanelVector.get(i).getComponent(2);
+                            String temp = ((JLabel) object).getText();
+                            int n = Integer.parseInt(temp);
+                            System.out.print(n);
+                            TeacherDaoImpl.deleteById(n);
                             jpmm.remove(jPanelVector.get(i));
                             jPanelVector.remove(i);
                             count--;
@@ -151,9 +246,13 @@ public class TInformation extends JPanel {
                     }
                     jpmm.repaint();
                     jpmm.revalidate();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }else {
                     jpmm.repaint();
                     jpmm.revalidate();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }
             }
         });
@@ -167,7 +266,7 @@ public class TInformation extends JPanel {
                 if(!name.equals("")){
                     Vector <Integer>temp = new Vector();
                     for(int i = jPanelVector.size()-1; i >=0; i--){
-                        Object object = jPanelVector.get(1).getComponent(1);  //获取姓名与搜索文本进行对比
+                        Object object = jPanelVector.get(i).getComponent(1);  //获取姓名与搜索文本进行对比
                         if(name.equals(((JLabel) object).getText())){   //保存符合要求的jpanel序号
                             temp.add(i);
                         }
@@ -178,6 +277,8 @@ public class TInformation extends JPanel {
                     }
                     jpmm.validate();
                     jpmm.repaint();
+                    jScrollPane.validate();
+                    jScrollPane.repaint();
                 }else {
                     JOptionPane.showMessageDialog(App.home,"请输入学生姓名！","警告",JOptionPane.WARNING_MESSAGE);
                     jtfs.requestFocus();
@@ -194,6 +295,8 @@ public class TInformation extends JPanel {
                 }
                 jpmm.validate();
                 jpmm.repaint();
+                jScrollPane.validate();
+                jScrollPane.repaint();
             }
         });
     }

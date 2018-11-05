@@ -1,23 +1,34 @@
 package Gui.Manage;
 
+import DAO.TeacherDaoImpl;
+import bean.Teacher;
+
 public class DetailT extends AddT {
-    public DetailT(){
+    public String names;
+    public DetailT(String name)
+    {
         super();
+        names = name;
+        CC();
     }
     public void setComponent(){
         super.setComponent();
     }
-    public void componentInitialize(){
-        super.componentInitialize();
-        ID.setText("123456");
-        Name.setText("luo");
-        Gender.setText("G");
-        RegistTime.setText("1990.11.20");
-        PhoneNumber.setText("12345678999");
-        CardType.setText("身份证");
-        CardID.setText("370911111155486654");
-        Address.setText("北京市朝阳区");
-        Email.setText("1254887799@qq.com");
-
+    public void CC(){
+        try{
+            Teacher teacher = TeacherDaoImpl.findByName(names).get(0);
+            ID.setText(String.valueOf(teacher.getId()));
+            Name.setText(teacher.getName());
+            Gender.setText(teacher.getSex());
+            RegistTime.setText(teacher.getTime());
+            PhoneNumber.setText(teacher.getPhone());
+            CardType.setText(teacher.getCerType());
+            CardID.setText(teacher.getCerNum());
+            Address.setText(teacher.getAddress());
+            Email.setText(teacher.getEmail());
+            Memo.setText(teacher.getNote());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -73,16 +73,16 @@ public class Home extends JFrame{
         JMArr = new JMenuItem("排课管理");
         JMCheck = new JMenuItem("查看");
         //主页图片
-        image = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\library-1400312_1920.jpg");
+        image = new ImageIcon("D:\\eclipse\\lalalala\\src\\Gui\\library-1400312_1920.jpg");
         //设置menubar
         setJMenuBar(JMB);
 
         toolBar = new JToolBar();
         //创建图表对象
-        ImageIcon imageSmanage = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\14.png");
-        ImageIcon imageCmanage = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\12.png");
-        ImageIcon imageFinace = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\8.png");
-        ImageIcon imageSign = new ImageIcon("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\7.png");
+        ImageIcon imageSmanage = new ImageIcon("D:\\eclipse\\lalalala\\src\\Gui\\14.png");
+        ImageIcon imageCmanage = new ImageIcon("D:\\eclipse\\lalalala\\src\\Gui\\12.png");
+        ImageIcon imageFinace = new ImageIcon("D:\\eclipse\\lalalala\\src\\Gui\\8.png");
+        ImageIcon imageSign = new ImageIcon("D:\\eclipse\\lalalala\\src\\Gui\\7.png");
         //创建工具栏
         JButton btSmanage = new JButton("学生管理",imageSmanage);
         btSmanage.setToolTipText("管理学生信息");

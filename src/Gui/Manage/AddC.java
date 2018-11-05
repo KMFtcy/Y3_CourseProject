@@ -47,7 +47,7 @@ public class AddC extends JFrame implements ActionListener{
         UpArea.add(Teacher);
         UpArea.add(new JLabel("课时费（次）",JLabel.CENTER));
         UpArea.add(Cost);
-        UpDown.add(new JLabel("备注"),BorderLayout.WEST);
+        UpDown.add(new JLabel("上课方式"),BorderLayout.WEST);
         UpDown.add(Memo,BorderLayout.CENTER);
         Down.add(Comfirm,BorderLayout.EAST);
         Down.add(Cancel,BorderLayout.WEST);

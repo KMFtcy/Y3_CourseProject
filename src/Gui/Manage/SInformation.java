@@ -54,7 +54,7 @@ public class SInformation extends JPanel {
         jpm = new JPanel();
         jln = new JLabel("姓名");
         jlno = new JLabel("编号");
-        jlt = new JLabel("学生类型");
+        jlt = new JLabel("学生年级");
         jls = new JLabel("入学时间");
         jcka = new JCheckBox("全选");
 
@@ -194,17 +194,49 @@ public class SInformation extends JPanel {
                         student.setGrade(DS.StudentType.getText());
                         student.setNote(DS.Memo.getText());
                         StudentDaoImpl.addStudent(student);
+                        StudentDaoImpl.updateStudentPhoto(DS.file,Integer.parseInt(DS.ID.getText()));
                         //设置标签信息
-                        jPanelVector.add(ts.JPanel(student));
-
-
-
-
 
 //                        ts.jln.setText(DS.Name.getText());
 //                        ts.jlno.setText(DS.ID.getText());
 //                        ts.jlc.setText(DS.StudentType.getText());
 //                        ts.jlt.setText(DS.RegistTime.getText());
+
+                        JPanel jPanel = ts.JPanel(student);
+                        jPanel.addMouseListener(new MouseListener() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                int clickTime = e.getClickCount();
+                                if(clickTime == 2) {
+                                    DetailS inf = new DetailS(student.getName());
+                                    inf.setVisible(true);
+                                    inf.setLocationRelativeTo(null);
+                                }
+                            }
+
+                            @Override
+                            public void mousePressed(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseReleased(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseEntered(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseExited(MouseEvent e) {
+
+                            }
+                        });
+                        jPanelVector.add(jPanel);
+
+
 
                         jpmm.add(jPanelVector.get(jPanelVector.size()-1));
                         jpmm.revalidate();

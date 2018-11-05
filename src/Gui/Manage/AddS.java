@@ -66,7 +66,7 @@ public class AddS extends JFrame implements ActionListener{
 		UpLeftArea.add(Name);
 		UpLeftArea.add(new JLabel("学生性别",JLabel.CENTER));
 		UpLeftArea.add(Gender);
-		UpLeftArea.add(new JLabel("学生类型",JLabel.CENTER));
+		UpLeftArea.add(new JLabel("学生年级",JLabel.CENTER));
 		UpLeftArea.add(StudentType);
 		UpLeftArea.add(new JLabel("入学时间",JLabel.CENTER));
 		UpLeftArea.add(RegistTime);

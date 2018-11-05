@@ -27,8 +27,8 @@ public class ToolS {
         jp.add(jck);
         jp.add(jln);
         jp.add(jlno);
-        jp.add(jlc);
         jp.add(jlt);
+        jp.add(jlc);
         jp.setBorder(BorderFactory.createEtchedBorder());
 //        jp.addMouseListener(new mouseTwice());
         return jp;
@@ -36,15 +36,15 @@ public class ToolS {
 
 
     //Ë«»÷ÊÂ¼þ
-    public class mouseTwice extends MouseAdapter {
-
-        public void mouseClicked(MouseEvent e) {
-            int clickTime = e.getClickCount();
-            if(clickTime == 2) {
-                DetailS inf = new DetailS(jln.getText());
-                inf.setVisible(true);
-                inf.setLocationRelativeTo(null);
-            }
-        }
-    }
+//    public class mouseTwice extends MouseAdapter {
+//
+//        public void mouseClicked(MouseEvent e) {
+//            int clickTime = e.getClickCount();
+//            if(clickTime == 2) {
+//                DetailS inf = new DetailS(jln.getText());
+//                inf.setVisible(true);
+//                inf.setLocationRelativeTo(null);
+//            }
+//        }
+//    }
 }

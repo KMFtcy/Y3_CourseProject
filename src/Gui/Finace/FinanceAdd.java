@@ -88,6 +88,7 @@ public class FinanceAdd extends JPanel {
     	financeRecord.setAim(outPP.getText());
     	//添加进数据库
     	FinanceDaoImpl.insertFinance(financeRecord);
+    	JOptionPane.showMessageDialog(null, "添加成功","提示",JOptionPane.INFORMATION_MESSAGE);
     }
    /* public static void main(String args[]){
         FinanceAdd financeAdd = new FinanceAdd();

@@ -115,7 +115,7 @@ public class StudentDaoImpl{
 		String cer_num=null;
 		String address=null;
 		String note=null;
-		byte picture=(Byte) null;
+//		byte picture=(Byte) null;
 		//创建数据库连接
 		Connection conn=null;
 		PreparedStatement st=null;
@@ -142,7 +142,7 @@ public class StudentDaoImpl{
 			cer_num=rs.getString("cer_num");
 			address=rs.getString("address");
 			note=rs.getString("note");
-			picture=rs.getByte("picture");
+//			picture=rs.getByte("picture");
 		}
 		result=new Student();
 		result.setId(id);
@@ -202,9 +202,9 @@ public class StudentDaoImpl{
 				id=rs.getInt("student_id");
 				name=rs.getString("name");
 				grade=rs.getString("grade");
-				String time=rs.getString("time");
+				RegisteTime=rs.getString("time");
 				phone=rs.getString("phone");
-				String birth=rs.getString("birth");
+				Birth=rs.getString("birth");
 				sex=rs.getString("sex");
 				ad_teacher=rs.getString("ad_teacher");
 				email=rs.getString("email");
@@ -243,19 +243,17 @@ public class StudentDaoImpl{
 	 * @return 返回true(添加成功)或false(添加失败)
 	 */
 	public static boolean addStudent(Student student) {
-		/*File file=new File("C:\\Users\\陆文翰\\git\\Y3_CourseProject\\src\\Gui\\罗豪.jpg");
-		BufferedInputStream imageInput = new BufferedInputStream(new FileInputStream(file));*/
 		boolean flag = false;
 		Connection conn =null;
 		Statement st=null;
 		try {
 			conn = JDBCUtil.getConn();
 			st=conn.createStatement();
-			String sql="insert into student values("+student.getId()+",'"+student.getName()+"','"
-			+student.getGrade()+"',"+student.getRegisteTime()+",'"+student.getPhone()+"',"
-			+student.getBirth()+",'"+student.getSex()+"','"+student.getInChargeTeacher()+"','"
+			String sql="insert into student(STUDENT_ID,NAME,GRADE,PHONE,SEX,AD_TEACHER,EMAIL,CER_TYPE,CER_NUM,ADDRESS,NOTE,TIME,BIRTH) values("+student.getId()+",'"+student.getName()+"','"
+			+student.getGrade()+"','"+student.getPhone()+"','"+student.getSex()+"','"+student.getInChargeTeacher()+"','"
 			+student.getEmail()+"','"+student.getCerTypr()+"','"+student.getCerCode()+"','"+student.getAddress()+"','"
-			+student.getNote()+"')";//,"+student.getPhoto()+"
+			+student.getNote()+"','"+student.getRegisteTime()+"','"
+			+student.getBirth()+"')";//,"+student.getPhoto()+"
 			//photo还没有存取方法
 			st.executeQuery(sql);
 			flag=true;
@@ -598,19 +596,20 @@ public class StudentDaoImpl{
 	 * @param photo传入图片，id传入学生id
 	 * @return 返回true(正确更新)或false(出错)
 	 */
-	public static boolean updateStudentPhoto(String photo,int id) {//还没实现
+	public static boolean updateStudentPhoto(File photo,int id) {//还没实现
 		boolean flag=false;
 		Connection conn =null;
 		PreparedStatement ps=null;
 		try {
 			conn = JDBCUtil.getConn();
-			String sql="update student set photo=? where student_id=?";//还没添加定位的字段
+			String sql="update student set photo =? where student_id=?";//还没添加定位的字段
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, photo);
+			BufferedInputStream imageInput = new BufferedInputStream(new FileInputStream(photo));
+			ps.setBinaryStream(1, imageInput , (int)photo.length());
 			ps.setLong(2, id);
 			ps.executeUpdate();
 			flag=true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {

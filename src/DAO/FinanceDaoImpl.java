@@ -28,12 +28,11 @@ public class FinanceDaoImpl {
 		try {
 			conn = JDBCUtil.getConn();
 			stmt=conn.createStatement();
-			String sql = "select * from Finance";
+			String sql = "select * from moneyOut";
 			searchResult = stmt.executeQuery(sql);
 			while (searchResult.next()) {
-				// TODO : 需要由后台替换属性名
-				theId = searchResult.getInt("put_id");
-				theAim = searchResult.getString("put_aim");
+				theId = searchResult.getInt("out_id");
+				theAim = searchResult.getString("out_aim");
 				theTeacherId = searchResult.getInt("teacher_id");
 				theOutTime = searchResult.getString("out_time");
 				theOutNum = searchResult.getString("out_num");
@@ -71,13 +70,12 @@ public class FinanceDaoImpl {
 		ResultSet searchResult = null;
 		try {
 			conn = JDBCUtil.getConn();
-			String sql = "select * from Finance" + " where id = " + Id;
+			String sql = "select * from moneyOut" + " where id = " + Id;
 			stmt = conn.prepareStatement(sql);
 			searchResult = stmt.executeQuery(sql);
 			while (searchResult.next()) {
-				// TODO : 需要由后台替换属性名
-				theId = searchResult.getInt("put_id");
-				theAim = searchResult.getString("put_aim");
+				theId = searchResult.getInt("out_id");
+				theAim = searchResult.getString("out_aim");
 				theTeacherId = searchResult.getInt("teacher_id");
 				theOutTime = searchResult.getString("out_time");
 				theOutNum = searchResult.getString("out_num");
@@ -113,8 +111,8 @@ public class FinanceDaoImpl {
 			conn = JDBCUtil.getConn();
 			stmt = conn.createStatement();
 			// TODO : 需要替换数据库的表名
-			String sql = "INSERT INTO FINANCE VALUES ( " + finance.getId() + "," + finance.getAim() + ","
-					+ finance.getTeacherId() + "," + finance.getOutTime() + "," + finance.getOutNum() + ")";
+			String sql = "INSERT INTO moneyout VALUES ( " + finance.getId() + ",'" + finance.getAim() + "','"
+					+ finance.getOutTime() + "'," + finance.getOutNum() + "," + finance.getTeacherId() + ")";
 			stmt.executeQuery(sql);
 			flag = true;
 		} catch (Exception e) {

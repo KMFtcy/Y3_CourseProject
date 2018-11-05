@@ -82,6 +82,7 @@ public class CourseDaoImpl {
 				course_fee=rs.getInt("course_fee");
 				course_memo=rs.getString("course_memo");
 			}
+		result = new Course();
 		result.setId(id);
 		result.setName(name);
 		result.setTeacherId(teacher_id);
@@ -201,19 +202,19 @@ public class CourseDaoImpl {
 				result1.setId(id);
 				c.add(result1);
 			}
-//			sql="select * from signin where schooltime=?";
-//			st = conn.prepareStatement(sql);
-//			st.setString(1, Date);
-//			rs=st.executeQuery();
-//			while(rs.next()) {
-//				id=rs.getInt("student_id");
-//				course_id=rs.getInt("course_id");
-//				for(int j=0;j<c.size();j++) {
-//					if(c.get(j).getId()==id) {
-//						c.remove(id);
-//					}
-//				}
-//			}	
+			sql="select * from signin where schooltime=?";
+			st = conn.prepareStatement(sql);
+			st.setString(1, Date);
+			rs=st.executeQuery();
+			while(rs.next()) {
+				id=rs.getInt("student_id");
+				course_id=rs.getInt("course_id");
+				for(int j=0;j<c.size();j++) {
+					if(c.get(j).getId()==id) {
+						c.remove(id);
+					}
+				}
+			}	
 	}catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -234,9 +235,9 @@ public class CourseDaoImpl {
 		try {
 			conn = JDBCUtil.getConn();
 			ps = conn.createStatement();
-			String sql="insert into course values("+course.getId()+","+course.getName()+","
-			+course.getTeacherId()+","+course.getCourseType()+","+course.getCourseFee()+","
-			+course.getMemo()+")";
+			String sql="insert into course values("+course.getId()+",'"+course.getName()+"',"
+			+course.getTeacherId()+",'"+course.getCourseType()+"',"+course.getCourseFee()+",'"
+			+course.getMemo()+"')";
 			ps.executeUpdate(sql);
 			flag=true;
 		} catch (SQLException e) {
@@ -254,9 +255,10 @@ public class CourseDaoImpl {
 		ResultSet rs=null;
 		try {
 			conn = JDBCUtil.getConn();
-			String sql="delete from course where course_id="+id;//还没添加定位的字段
+			String sql="delete from course where course_id=?";//还没添加定位的字段
 			ps=conn.prepareStatement(sql);
 			ps.setLong(1, id);
+			ps.executeUpdate();
 			flag=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

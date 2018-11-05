@@ -73,6 +73,16 @@ public class AddT extends JFrame implements ActionListener{
         UpCenterArea.add(Email);
         UpRightArea.add(new JLabel("照片",JLabel.CENTER));
         UpRightArea.add(new JLabel("这是到时插入的照片",JLabel.CENTER));
+
+
+
+        //zhao pian
+
+
+
+
+
+
         UpButtomArea.add(new JLabel("备注"),BorderLayout.WEST);
         UpButtomArea.add(Memo,BorderLayout.CENTER);
         ButtomArea.add(Comfirm);

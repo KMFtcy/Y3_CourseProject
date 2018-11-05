@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
 import DAO.util.JDBCUtil;
 import bean.Course;
+import bean.ScheduleRecord;
 import bean.SignRecord;
 import bean.Student;
 import bean.Teacher;
@@ -225,5 +229,21 @@ public class SignOnDaoImpl {
 		}
 		return flag;
 	
+	}
+	public static void addSchedule(ScheduleRecord record) {
+		Connection conn =null;
+		Statement st=null;
+		try {
+			conn = JDBCUtil.getConn();
+			st=conn.createStatement();
+			String sql="insert into todayschedule values("+record.getId()+","+record.getTeacherId()+",'"
+			+record.getSchoolTime()+"',"+record.getStudentId()+","+ record.getCourseId()+")";
+			st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.release(conn, st);
+		}
 	}
 }

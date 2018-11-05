@@ -113,6 +113,7 @@ public class TeacherDaoImpl{
 				address=rs.getString("address");
 				note=rs.getString("note");
 			}
+		result = new Teacher();
 		result.setId(id);
 		result.setName(name);
 		result.setSex(sex);
@@ -196,10 +197,10 @@ public class TeacherDaoImpl{
 		try {
 			conn = JDBCUtil.getConn();
 			ps = conn.createStatement();
-			String sql="insert into teacher values("+teacher.getId()+","+teacher.getName()+","
-			+teacher.getSex()+","+teacher.getTime()+","+teacher.getPhone()+","
-			+teacher.getEmail()+","+teacher.getCerType()+","+teacher.getCerNum()+","
-			+teacher.getAddress()+","+teacher.getNote()+")";
+			String sql="insert into teacher values("+teacher.getId()+",'"+teacher.getName()+"','"
+			+teacher.getSex()+"','"+teacher.getPhone()+"','"
+			+teacher.getEmail()+"','"+teacher.getCerType()+"','"+teacher.getCerNum()+"','"
+			+teacher.getAddress()+"','"+teacher.getNote()+"','"+teacher.getTime()+"')";
 			
 			ps.executeUpdate(sql);
 			flag=true;
@@ -223,9 +224,10 @@ public class TeacherDaoImpl{
 		ResultSet rs=null;
 		try {
 			conn = JDBCUtil.getConn();
-			String sql="delete from teacher where teacher_id="+id;//还没添加定位的字段
+			String sql="delete from teacher where teacher_id=?";//还没添加定位的字段
 			ps=conn.prepareStatement(sql);
 			ps.setLong(1, id);
+			ps.executeUpdate();
 			flag=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

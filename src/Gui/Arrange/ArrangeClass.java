@@ -5,9 +5,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
+import DAO.CourseDaoImpl;
+import DAO.ScheduleDaoImpl;
+import DAO.StudentDaoImpl;
+import DAO.TeacherDaoImpl;
+import bean.ScheduleRecord;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class ArrangeClass extends JPanel {
@@ -45,15 +53,16 @@ public class ArrangeClass extends JPanel {
     private void fillTable() {
         colHead.clear();
         colHead.add("课程");
-        colHead.add("任课老师");
         colHead.add("报名学生");
+        colHead.add("任课老师");
         //填充每行
         rows.clear();
-        for (int i = 0; i < 10; i++) {
+        ArrayList<ScheduleRecord> ScheduleRecordList = (ArrayList) ScheduleDaoImpl.getAll();
+        for (ScheduleRecord i:ScheduleRecordList) {
             Vector<java.io.Serializable> currentRow = new Vector<>();//创建当前行的数据
-            currentRow.add("高一语文");
-            currentRow.add("xxxxx");
-            currentRow.add("点击查看学生名单");
+            currentRow.add(CourseDaoImpl.findById(i.getCourseId()).getName());
+            currentRow.add(StudentDaoImpl.findById(i.getStudentId()).getName());
+            currentRow.add(TeacherDaoImpl.findById(i.getTeacherId()).getName());
             rows.add(currentRow);
         }
 
