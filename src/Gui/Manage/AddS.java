@@ -32,7 +32,16 @@ public class AddS extends JFrame implements ActionListener{
 	JButton Cancel;//取消按钮
 	File file;//选择的照片
 	ImageIcon photo;//照片
-	
+	JLabel jLabel;//存放照片的标签
+
+
+    ///区域JPanel定义为类共有，否则无法在子类中使用
+    JPanel UpArea = new JPanel();
+    JPanel UpLeftArea = new JPanel();
+    JPanel UpCenterArea = new JPanel();
+    JPanel UpRightArea = new JPanel();
+    JPanel UpButtomArea = new JPanel();
+    JPanel ButtomArea = new JPanel();
 	
 	public AddS(){
 		this.setResizable(false);
@@ -46,12 +55,7 @@ public class AddS extends JFrame implements ActionListener{
 		componentInitialize();
 		//这个窗口的布局大概分为上下两个部分，其中上大概分为左、中、右、下四个部分
 		//下就是放两个按钮
-		JPanel UpArea = new JPanel();
-		JPanel UpLeftArea = new JPanel();
-		JPanel UpCenterArea = new JPanel();
-		JPanel UpRightArea = new JPanel();
-		JPanel UpButtomArea = new JPanel();
-		JPanel ButtomArea = new JPanel();
+
 		//设置容器的布局Layout
 		UpArea.setLayout(new BorderLayout());
 		UpLeftArea.setLayout(new GridLayout(7,2));
@@ -99,7 +103,7 @@ public class AddS extends JFrame implements ActionListener{
 					InputStream is = new FileInputStream(file);
 					BufferedImage bi = ImageIO.read(is);
 					photo = new ImageIcon((Image)bi);
-					JLabel jLabel = new JLabel(photo);
+					jLabel = new JLabel(photo);
 					UpRightArea.removeAll();
 					UpRightArea.add(jLabel);
 					UpRightArea.revalidate();

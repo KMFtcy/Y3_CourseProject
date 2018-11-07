@@ -176,7 +176,7 @@ public class SInformation extends JPanel {
                     public void actionPerformed(ActionEvent e1) {
                         //DAOÔ¤ÁôÎ»ÖÃ
                         ToolS ts = new ToolS();
-
+                        
                         //jPanelVector.add(ts.JPanel());
                         //Êý¾Ý¿â
                         Student student = new Student();

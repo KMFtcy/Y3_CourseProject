@@ -1,9 +1,12 @@
 package DAO;
 
+import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -229,12 +232,18 @@ public class StudentDaoImpl{
 				result.setCerCode(cer_num);
 				result.setAddress(address);
 				result.setNote(note);
-				//result.setPhoto(picture);
+				Blob photoBlob = rs.getBlob("photo");
+				if(photoBlob != null) {
+					InputStream inputstream = photoBlob.getBinaryStream();
+					Image image = javax.imageio.ImageIO.read(inputstream);
+					ImageIcon photo = new ImageIcon(image);
+					result.setPhoto(image);;
+				}
 				sd.add(result);
 			}
 			
 			
-		}catch(SQLException e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return sd;
@@ -599,6 +608,7 @@ public class StudentDaoImpl{
 	 * @return 返回true(正确更新)或false(出错)
 	 */
 	public static boolean updateStudentPhoto(File photo,int id) {//还没实现
+		System.out.println("测试代码001");
 		boolean flag=false;
 		Connection conn =null;
 		PreparedStatement ps=null;
@@ -608,7 +618,7 @@ public class StudentDaoImpl{
 			ps=conn.prepareStatement(sql);
 			BufferedInputStream imageInput = new BufferedInputStream(new FileInputStream(photo));
 			ps.setBinaryStream(1, imageInput , (int)photo.length());
-			ps.setInt(2, id);
+			ps.setLong(2, id);
 			ps.executeUpdate();
 			flag=true;
 		} catch (Exception e) {
