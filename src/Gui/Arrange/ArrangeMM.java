@@ -218,39 +218,14 @@ public class ArrangeMM extends JPanel {
 
 	public void initializeButton() {
 		Comfirm = new JButton("添加");
-		Comfirm.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
+		Comfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ArrayList selectedStudentList;
 				selectedStudentList = (ArrayList) StudentList.getSelectedValuesList();
 				String data = "课程：" + (String)CourseList.getSelectedValue() +
-						 "教师：" + (String)TeacherList.getSelectedValue() 
-						 + "学生：";
+						"教师：" + (String)TeacherList.getSelectedValue() 
+						+ "学生：";
 				for(Object i: selectedStudentList) {
 					data += (String)i+" ";
 				}
@@ -277,9 +252,10 @@ public class ArrangeMM extends JPanel {
 					//获取当前时间
 					Calendar c = Calendar.getInstance();
 					record.setSchoolTime(c.get(Calendar.YEAR) + "-" 
-						+ c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH));
+							+ c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH));
 					SignOnDaoImpl.addSchedule(record);
 				}
+				JOptionPane.showMessageDialog(null, "添加成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		SearchCourseButton = new JButton("搜索");
