@@ -183,6 +183,7 @@ public class Home extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 card.show(jPanel,"2");
+                b.fillTable();
                 b.validate();
                 b.repaint();
 

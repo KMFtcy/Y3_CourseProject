@@ -50,7 +50,7 @@ public class ArrangeClass extends JPanel {
 
     }
 
-    private void fillTable() {
+    public void fillTable() {
         colHead.clear();
         colHead.add("课程");
         colHead.add("报名学生");
